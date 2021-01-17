@@ -57,7 +57,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"monrain.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"monrain.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"8379290ea25ba5bb7ce74136a14368c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -186,7 +186,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      849 字
+      883 字
     </span>
   
 
@@ -196,7 +196,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10
+      11
        分钟
     </span>
   
@@ -248,7 +248,8 @@
 <ul>
 <li>方法一：可以考虑将hexo加入PATH</li>
 <li>方法二：设置alias hexo=’npx hexo’</li>
-<li>方法三：(Windows系统)，使用<strong>git bash</strong>貌似可以不用设置环境PATH。但是存在一个小问题，直接运行<strong>git bash</strong>无法找到hexo指令，但从文件夹窗口中使用右键菜单<strong>在此处打开git bash</strong>可以直接使用<code>hexo &lt;command&gt;</code></li>
+<li>方法三：(Windows系统)，使用<strong>git bash</strong>貌似可以不用设置环境PATH。但是存在一个小问题，直接运行<strong>git bash</strong>无法正确运行hexo指令，但从文件夹窗口中使用右键菜单<strong>在此处打开git bash</strong>可以直接使用<code>hexo &lt;command&gt;</code></li>
+<li>方法三小问题的原因：<code>hexo &lt;command&gt;</code>需要在blog根目录下执行，因此其它路径会报错。</li>
 </ul>
 <h2 id="三、初始配置"><a href="#三、初始配置" class="headerlink" title="三、初始配置"></a>三、初始配置</h2><p>自此开始，默认使用简化的形式</p>
 <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">$ hero &lt;<span class="hljs-keyword">command</span>&gt;<br></code></pre></td></tr></table></figure>
@@ -484,6 +485,30 @@
 
 
 
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?8379290ea25ba5bb7ce74136a14368c2";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
 
