@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      864 字
+      849 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      10
        分钟
     </span>
   
@@ -233,51 +233,51 @@
 <li><strong>Git</strong>：版本控制工具，主要用于博客的版本控制、远端存储和同步</li>
 </ul>
 <h2 id="二、安装Hexo"><a href="#二、安装Hexo" class="headerlink" title="二、安装Hexo"></a>二、安装Hexo</h2><p>安装好上述软件需求后，在shell终端输入以下指令，即可完成安装Hexo。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">$ npm install -g hexo-<span class="hljs-keyword">cli</span><br></code></pre></td></tr></table></figure>
 <p>安装过程中可能遇到的问题：</p>
 <ol>
 <li>安装过程缓慢或卡在某个过程中不动弹。可以考虑修改npm的默认下载源，如<strong>淘宝镜像源</strong>。</li>
 <li>Windows可以在<strong>Git Bash</strong>中进行类似Linux中的指令。</li>
 </ol>
 <p>安装好hexo之后，如此使用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npx hexo &lt;command&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">$ npx hexo &lt;<span class="hljs-keyword">command</span>&gt;<br></code></pre></td></tr></table></figure>
 <p>为了方便起见，我们更倾向于直接使用hexo指令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># hexo &lt;command&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta"># hexo <span class="hljs-meta-string">&lt;command&gt;</span></span><br></code></pre></td></tr></table></figure>
 <ul>
 <li>方法一：可以考虑将hexo加入PATH</li>
 <li>方法二：设置alias hexo=’npx hexo’</li>
 <li>方法三：(Windows系统)，使用<strong>git bash</strong>貌似可以不用设置环境PATH。但是存在一个小问题，直接运行<strong>git bash</strong>无法找到hexo指令，但从文件夹窗口中使用右键菜单<strong>在此处打开git bash</strong>可以直接使用<code>hexo &lt;command&gt;</code></li>
 </ul>
 <h2 id="三、初始配置"><a href="#三、初始配置" class="headerlink" title="三、初始配置"></a>三、初始配置</h2><p>自此开始，默认使用简化的形式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hero &lt;command&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">$ hero &lt;<span class="hljs-keyword">command</span>&gt;<br></code></pre></td></tr></table></figure>
 <p>安装好Hexo之后，要初始化一个工作目录，类似于git中的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp">$ git <span class="hljs-keyword">init</span><br></code></pre></td></tr></table></figure>
 <p>执行指令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init &lt;directory&gt;</span><br><span class="line">$ cd &lt;directory&gt;</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$</span> hexo init &lt;directory&gt;<br><span class="hljs-variable">$</span> <span class="hljs-built_in">cd</span> &lt;directory&gt;<br><span class="hljs-variable">$</span> npm install<br></code></pre></td></tr></table></figure>
 <p>逐条解析：</p>
 <ol>
 <li><code>hexo init &lt;directory&gt;</code>：格式化指定路径为hexo工作目录。</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ ll &lt;directory&gt;</span><br><span class="line">total 116</span><br><span class="line">-rw-r--r-- 1  197609     0   _config.landscape.yml</span><br><span class="line">-rw-r--r-- 1  197609  2545   _config.yml</span><br><span class="line">drwxr-xr-x 1  197609     0   node_modules&#x2F;</span><br><span class="line">-rw-r--r-- 1  197609   641   package.json</span><br><span class="line">-rw-r--r-- 1  197609 57736   package-lock.json</span><br><span class="line">drwxr-xr-x 1  197609     0   scaffolds&#x2F;</span><br><span class="line">drwxr-xr-x 1  197609     0   source&#x2F;</span><br><span class="line">drwxr-xr-x 1  197609     0   themes&#x2F;</span><br></pre></td></tr></table></figure>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs tap">$ ll &lt;directory&gt;<br>total 116<br>-rw-r--r--<span class="hljs-number"> 1 </span><span class="hljs-number"> 197609 </span>   <span class="hljs-number"> 0 </span>  _config.landscape.yml<br>-rw-r--r--<span class="hljs-number"> 1 </span><span class="hljs-number"> 197609 </span><span class="hljs-number"> 2545 </span>  _config.yml<br>drwxr-xr-x<span class="hljs-number"> 1 </span><span class="hljs-number"> 197609 </span>   <span class="hljs-number"> 0 </span>  node_modules/<br>-rw-r--r--<span class="hljs-number"> 1 </span><span class="hljs-number"> 197609 </span> <span class="hljs-number"> 641 </span>  package.json<br>-rw-r--r--<span class="hljs-number"> 1 </span><span class="hljs-number"> 197609 </span>57736   package-lock.json<br>drwxr-xr-x<span class="hljs-number"> 1 </span><span class="hljs-number"> 197609 </span>   <span class="hljs-number"> 0 </span>  scaffolds/<br>drwxr-xr-x<span class="hljs-number"> 1 </span><span class="hljs-number"> 197609 </span>   <span class="hljs-number"> 0 </span>  source/<br>drwxr-xr-x<span class="hljs-number"> 1 </span><span class="hljs-number"> 197609 </span>   <span class="hljs-number"> 0 </span>  themes/<br></code></pre></td></tr></table></figure>
 <ol start="2">
 <li><code>cd &lt;directory&gt;</code>：切换到工作目录</li>
 <li><code>npm install</code>：使用<code>npm</code>根据<code>&lt;directory&gt;</code>中的配置文件下载相关的依赖文件。</li>
 </ol>
 <h2 id="四、个性化设置"><a href="#四、个性化设置" class="headerlink" title="四、个性化设置"></a>四、个性化设置</h2><p>关于hexo博客的个性化设置，离不开<code>&lt;hexo&gt;/_config.yml</code></p>
-<h3 id="1、设置博客标题、基本信息等"><a href="#1、设置博客标题、基本信息等" class="headerlink" title="1、设置博客标题、基本信息等"></a>1、设置博客标题、基本信息等</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ vim _config.yml</span><br><span class="line">...</span><br><span class="line"># Site</span><br><span class="line">title: 设置博客标题</span><br><span class="line">subtitle: &#39;&#39;</span><br><span class="line">description: &#39;&#39;</span><br><span class="line">keywords:</span><br><span class="line">author: 作者姓名</span><br><span class="line">language: 语言，中文设置为zh即可</span><br><span class="line">timezone: 国内一般使用Asia&#x2F;Shanghai即可</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h3 id="1、设置博客标题、基本信息等"><a href="#1、设置博客标题、基本信息等" class="headerlink" title="1、设置博客标题、基本信息等"></a>1、设置博客标题、基本信息等</h3><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs makefile">$ vim _config.yml<br>...<br><span class="hljs-comment"># Site</span><br><span class="hljs-section">title: 设置博客标题</span><br><span class="hljs-section">subtitle: &#x27;&#x27;</span><br><span class="hljs-section">description: &#x27;&#x27;</span><br><span class="hljs-section">keywords:</span><br><span class="hljs-section">author: 作者姓名</span><br><span class="hljs-section">language: 语言，中文设置为zh即可</span><br><span class="hljs-section">timezone: 国内一般使用Asia/Shanghai即可</span><br>...<br></code></pre></td></tr></table></figure>
 <p>此处抛砖引玉，更多相关设置使用时实时查阅即可</p>
 <h3 id="2、设置博客主题-theme"><a href="#2、设置博客主题-theme" class="headerlink" title="2、设置博客主题(theme)"></a>2、设置博客主题(theme)</h3><p><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo官网</a>共享了很多主题。</p>
 <p><img src="https://raw.githubusercontent.com/MonRain/ImagePool/main/hexo_theme.png" srcset="/img/loading.gif" alt="Hexo官网主题"></p>
 <p>任选一款进入，即可找到作者的github主页连接，在其中寻找hexo的主题仓库即可，一般在readme中都会详细介绍主题的安装方法。不过一般来说都是一样的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd &lt;directory&gt;</span><br><span class="line">$ git clone &lt;github_theme仓库的连接&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> <span class="hljs-built_in">cd</span> &lt;directory&gt;</span><br><span class="hljs-meta">$</span><span class="bash"> git <span class="hljs-built_in">clone</span> &lt;github_theme仓库的连接&gt;</span><br></code></pre></td></tr></table></figure>
 <p>在此之后修改<code>_config.yml</code>中的<code>theme</code>即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Extensions</span><br><span class="line">## Plugins: https:&#x2F;&#x2F;hexo.io&#x2F;plugins&#x2F;</span><br><span class="line">## Themes: https:&#x2F;&#x2F;hexo.io&#x2F;themes&#x2F;</span><br><span class="line">theme: 这里这里这里 theme名称填上去就可以了</span><br></pre></td></tr></table></figure>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs clean"># Extensions<br>## Plugins: https:<span class="hljs-comment">//hexo.io/plugins/</span><br>## Themes: https:<span class="hljs-comment">//hexo.io/themes/</span><br>theme: 这里这里这里 theme名称填上去就可以了<br></code></pre></td></tr></table></figure>
 <p>个别theme会有自己的安装方法，按照readme详细做就可以了。</p>
 <h2 id="五、查看博客"><a href="#五、查看博客" class="headerlink" title="五、查看博客"></a>五、查看博客</h2><p>在shell中键入以下指令即可开启本地服务，从本地浏览器输入对应连接(下文对应链接为localhost:4000)即可查看</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br><span class="line">INFO  Validating config</span><br><span class="line">INFO  Start processing</span><br><span class="line">INFO  Hexo is running at http:&#x2F;&#x2F;localhost:4000 . Press Ctrl+C to stop.</span><br></pre></td></tr></table></figure>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">$ hexo <span class="hljs-keyword">server</span><br><span class="hljs-keyword">INFO</span>  Validating config<br><span class="hljs-keyword">INFO</span>  <span class="hljs-keyword">Start</span> processing<br><span class="hljs-keyword">INFO</span>  Hexo <span class="hljs-keyword">is</span> running at http://localhost:<span class="hljs-number">4000</span> . Press Ctrl+C <span class="hljs-keyword">to</span> stop.<br></code></pre></td></tr></table></figure>
 <p><img src="https://raw.githubusercontent.com/MonRain/ImagePool/main/hexo_init_blog.png" srcset="/img/loading.gif" alt="第一眼博客"></p>
 <p>使用<code>-o</code>选项可以自动使用系统默认浏览器打开</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server -o</span><br></pre></td></tr></table></figure>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta">$ hexo <span class="hljs-keyword">server</span> -o<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
