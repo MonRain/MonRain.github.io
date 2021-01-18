@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="昔日，寒山问拾得曰：世间谤我、欺我、辱我、笑我、轻我、贱我、恶我、骗我，如何处治乎？拾得云：只是忍他、让他、由他、避他、敬他、不要理他，再待几年，你且看他!">
+  <meta name="author" content="MonRain">
+  <meta name="keywords" content="">
+  <title>Python的符号分隔值格式(xsv)文件读取 - 寒山雨</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"monrain.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"8379290ea25ba5bb7ce74136a14368c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"cfMGSskrslq5bGWt4S9w22gj-gzGzoHsz","app_key":"2vLAJpthzuCQMsvLO92iQUr1","server_url":"https://cfmgsskr.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>寒山雨</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Python的符号分隔值格式(xsv)文件读取">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-18 20:36" pubdate>
+        2021年1月18日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      20
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Python的符号分隔值格式(xsv)文件读取</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Python的符号分隔值格式-xsv-文件读取"><a href="#Python的符号分隔值格式-xsv-文件读取" class="headerlink" title="Python的符号分隔值格式(xsv)文件读取"></a>Python的符号分隔值格式(xsv)文件读取</h1><h2 id="一、xsv文件介绍"><a href="#一、xsv文件介绍" class="headerlink" title="一、xsv文件介绍"></a>一、xsv文件介绍</h2><p>xsv(x-separated values)x分隔值文件格式，最常见的是</p>
+<blockquote>
+<p>csv(Comma-Separated Values, 逗号分隔值)<br>tsv(Tab-separated values, 制表符分隔值)<br><font size=2, color='gray'> xsv 名称是笔者杜撰，不确定是否真的有这个叫法，也不确定除了上述两种格式是否还有其它格式，即其它分隔方式。这样做的目的是将此类文件统称起来。 </font></p>
+</blockquote>
+<p>一定意义上来说，这类文件格式的区别其实就是分隔符不同，在python中体现为<code>delimiter</code>等参数不同。</p>
+<p>此类文件用简单的<strong>文件编辑器</strong>即可打开，如 <em>Windows系统自带的记事本(nptepad)、关爱孤儿的vim编辑器</em> 以及 <em>VSCode</em> 等。不过一般此类文件用于存储大批量有规则的数据，主要使用<code>code</code>进行批量自动化读取和更多操作。</p>
+<p>以下是来自wikipida的解释：</p>
+<h3 id="1、csv格式"><a href="#1、csv格式" class="headerlink" title="1、csv格式"></a>1、csv格式</h3><p>制表符分隔值 （Tab-separated values，TSV）格式文件是一种用于储存数据的文本格式文件，其数据以表格结构（例如 数据库 或 电子表格 数据）储存。每一行储存一条记录。 每条记录的各个字段间以制表符作为分隔。</p>
+<p>TSV 格式是一种被广泛支持的文件格式，它经常用来在不同的计算机程序之间传递数据，支持格式。 例如，TSV文件可以用来在数据库和电子表格之间传递数据。</p>
+<p>TSV 格式是逗号分隔值（CSV）格式的一种变体，CSV 格式以逗号作为字段间的分隔符号，因为逗号本身是一种很常见的文本数据，因此常常会引起一些问题，而制表符在文本数据中相对少见。在 IANA 标准中，数据字段内禁止使用制表符。</p>
+<h3 id="2、tsv格式"><a href="#2、tsv格式" class="headerlink" title="2、tsv格式"></a>2、tsv格式</h3><p>逗号分隔值（Comma-Separated Values，CSV，有时也称为字符分隔值，因为分隔字符也可以不是逗号），其文件以纯文本形式存储表格数据（数字和文本）。纯文本意味着该文件是一个字符序列，不含必须像二进制数字那样被解读的数据。CSV文件由任意数目的记录组成，记录间以某种换行符分隔；每条记录由字段组成，字段间的分隔符是其它字符或字符串，最常见的是逗号或制表符。通常，所有记录都有完全相同的字段序列。</p>
+<p>CSV文件格式的通用标准并不存在，但是在RFC 4180中有基础性的描述。使用的字符编码同样没有被指定，但是7-bit ASCII是最基本的通用编码。</p>
+<ul>
+<li>由于笔者是通过关注到tshark解析pcap文件的代码了解到tsv文件的，因此以下记录了解析得到的tsv文件的文件头部（位于tsv文件的第一行，指示了后序每行数据每列代表的内容）</li>
+</ul>
+<p><img src="https://gitee.com/songz7026/image-pool/raw/master/Python/xsv_tsv_header.jpg" srcset="/img/loading.gif" alt="pcap解析得到的tsv文件的文件头"></p>
+<h2 id="二、Python-I-O-简介（文件读取）"><a href="#二、Python-I-O-简介（文件读取）" class="headerlink" title="二、Python I/O 简介（文件读取）"></a>二、Python I/O 简介（文件读取）</h2><p>涉及到对xsv文件的操作，需要了解Python文件读取的主要方法。</p>
+<h3 id="1、open-filename-mode-…"><a href="#1、open-filename-mode-…" class="headerlink" title="1、open(filename, mode, …)"></a>1、open(filename, mode, …)</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">open</span>(filename, <span class="hljs-keyword">mode</span>, ...)<br>	(<span class="hljs-symbol">&lt;PATH&gt;</span>, <span class="hljs-string">&quot;rwxts...&quot;</span>, ...)//<span class="hljs-keyword">mode</span>可以参看builtins.<span class="hljs-keyword">py</span>源代码中的注释<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>return</code>: 方法返回一个<code>file</code>对象，该对象可以进行进一步操作。</li>
+<li><code>filename</code>: 操作的的文件路径</li>
+<li><code>mode</code>: 文件操作模式选项，可以进一步细分为<code>rwx...</code><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs vim">========= ===============================================================<br>Character Meaning 来自builtins.<span class="hljs-keyword">py</span>中<span class="hljs-keyword">open</span>()方法下的注释<br>--------- ---------------------------------------------------------------<br>文件打开模式，特别注意光标的位置（光标向后的位置会被覆盖）<br><span class="hljs-string">&#x27;r&#x27;</span>       <span class="hljs-keyword">open</span> <span class="hljs-keyword">for</span> reading (default) 只读(默认) 光标位于开头<br><span class="hljs-string">&#x27;w&#x27;</span>       <span class="hljs-keyword">open</span> <span class="hljs-keyword">for</span> writing, truncating the <span class="hljs-keyword">file</span> <span class="hljs-keyword">first</span> 只写 光标位于开头 原有内容删除 若文件不存在则新建文件<br><span class="hljs-string">&#x27;x&#x27;</span>       create <span class="hljs-keyword">a</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">file</span> <span class="hljs-built_in">and</span> <span class="hljs-keyword">open</span> it <span class="hljs-keyword">for</span> writing 只写 新建文件 如果该文件已存在则会报错<br><span class="hljs-string">&#x27;a&#x27;</span>       <span class="hljs-keyword">open</span> <span class="hljs-keyword">for</span> writing, appending <span class="hljs-keyword">to</span> the end of the <span class="hljs-keyword">file</span> <span class="hljs-keyword">if</span> it <span class="hljs-built_in">exists</span> 只写（追加<span class="hljs-keyword">append</span>） 光标位于最后 若文件不存在则新建文件<br><br>返回文件的形式<br><span class="hljs-string">&#x27;b&#x27;</span>       binary <span class="hljs-keyword">mode</span> 返回binary文件， 对于<span class="hljs-string">&#x27;byte&#x27;</span>组成的文件<br><span class="hljs-string">&#x27;t&#x27;</span>       text <span class="hljs-keyword">mode</span> (default) 返回文本文件， 对于<span class="hljs-string">&quot;str&quot;</span>组成的文件 <br>覆盖<br><span class="hljs-string">&#x27;+&#x27;</span>       <span class="hljs-keyword">open</span> <span class="hljs-keyword">a</span> disk <span class="hljs-keyword">file</span> <span class="hljs-keyword">for</span> updating (reading <span class="hljs-built_in">and</span> writing) 打开一个文件进行更新(可读可写)<br><br>其它<br><span class="hljs-string">&#x27;U&#x27;</span>       universal newline <span class="hljs-keyword">mode</span> (deprecated) 通用换行模式<br>========= ===============================================================<br></code></pre></td></tr></table></figure>
+关于open()方法更详细的操作可以参考</li>
+</ul>
+<ol>
+<li>源代码( <em>在编辑器中查找open()的定义位置</em> )中的注释，</li>
+<li><a target="_blank" rel="noopener" href="https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files">官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-func-open.html">菜鸟教程：Python open() 函数</a></li>
+</ol>
+<h4 id="file对象方法"><a href="#file对象方法" class="headerlink" title="file对象方法"></a><code>file</code>对象方法</h4><ul>
+<li><code>file.read([size])</code>：size 未指定则返回整个文件，如果文件大小 &gt;2 倍内存则有问题，f.read()读到文件尾时返回””(空字串)。</li>
+<li><code>file.readline()</code>：返回一行。</li>
+<li><code>file.readlines([size])</code>：返回包含size行的列表, size 未指定则返回全部行。</li>
+<li><code>for line in f: print line</code> ：通过迭代器访问。</li>
+<li><code>f.write(&quot;hello\n&quot;)</code>：如果要写入字符串以外的数据,先将他转换为字符串。</li>
+<li><code>f.tell()</code>：返回一个整数,表示当前文件指针的位置(就是到文件头的字节数)。</li>
+<li><code>f.seek(偏移量,[起始位置])</code>：用来移动文件指针。<br>偏移量: 单位为字节，可正可负<br>起始位置: <strong>0</strong> - 文件头, 默认值; <strong>1</strong> - 当前位置; <strong>2</strong> - 文件尾</li>
+<li><code>f.close()</code>： 关闭文件</li>
+</ul>
+<h3 id="2、with关键字"><a href="#2、with关键字" class="headerlink" title="2、with关键字"></a>2、with关键字</h3><blockquote>
+<p>引子：使用内置open()打开文件之后，要close()以正确关闭以释放资源</p>
+</blockquote>
+<p><code>open()</code>操作常常与<code>with</code>关键字连用，解决引子中麻烦的累赘问题</p>
+<ul>
+<li>对比之后，显而易见</li>
+</ul>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-variable"><span class="hljs-keyword">try</span></span> <span class="hljs-function"><span class="hljs-title">open</span>():</span><br><span class="hljs-function">	...</span><br><span class="hljs-function"><span class="hljs-variable"><span class="hljs-keyword">finally</span></span>:</span><br><span class="hljs-function">	<span class="hljs-title">close</span>()</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs fsharp"><span class="hljs-keyword">with</span> <span class="hljs-keyword">open</span>()<br>	...<span class="hljs-comment">//更加简洁，自动关闭</span><br></code></pre></td></tr></table></figure>
+<h2 id="三、Python对xsv的支持"><a href="#三、Python对xsv的支持" class="headerlink" title="三、Python对xsv的支持"></a>三、Python对xsv的支持</h2><p>在Python中，有对csv的支持，其它变体（包括tsv）一律视为其中的<code>delimiter</code>等参数不同。</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elm"><span class="hljs-keyword">import</span> csv<br></code></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://docs.python.org/3/library/csv.html">Python csv Document</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/csv.html">Python csv 官方文档</a></p>
+<h3 id="1csv文件的读取"><a href="#1csv文件的读取" class="headerlink" title="1csv文件的读取"></a>1csv文件的读取</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">csv.reader(csvfile, <span class="hljs-attribute">dialect</span>=<span class="hljs-string">&#x27;excel&#x27;</span>, *<span class="hljs-number">*f</span>mtparams)<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>return</code>: <code>reader</code>对象</li>
+<li><code>csvfile</code>: 文件路径</li>
+<li><code>dialect</code>: 指明读取的对象是何种csv文件的变体，如tsv。</li>
+<li><code>**fmtparams</code>：<strong>变种与格式参数</strong> 覆盖当前变种(dialect)的单个格式设置</li>
+</ul>
+<blockquote>
+<p>Python认定csv格式的各种变种都是通过改了一堆参数得到的，（参见python文档），如</p>
+<blockquote>
+<p>dialect.delimiler 用于分隔字段的单字符，默认为逗号”,”<br>dialect.doublequole …<br>dialect.escapechar …<br>..</p>
+</blockquote>
+</blockquote>
+<h5 id="iterator迭代器"><a href="#iterator迭代器" class="headerlink" title="iterator迭代器"></a>iterator迭代器</h5><p>引子：csv.reader()使用的对象只需要下列两点，即可顺利打开</p>
+<blockquote>
+<ol>
+<li>满足iterator协议</li>
+<li>并且每次都调用<code>__next__()</code>方法都返回<code>str</code> </li>
+</ol>
+<p>关键字：iterator协议；__next()__</p>
+</blockquote>
+<p><strong>迭代器对象</strong>：表示一串数据的对象，如<code>csv.reader()</code>返回的<code>reader</code>对象。配合使用<code>__next__()</code>方法即可逐行获得字符串。</p>
+<p><img src="https://gitee.com/songz7026/image-pool/raw/master/Python/xsv_iterator.png" srcset="/img/loading.gif" alt="iterator对象示意图"></p>
+<ul>
+<li><code>__next__()</code>：返回迭代器对象中的下一项，到达最后一项溢出会引发<code>StopIteration</code>异常</li>
+</ul>
+<h2 id="四、参考资料"><a href="#四、参考资料" class="headerlink" title="四、参考资料"></a>四、参考资料</h2><p>[1]. <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%88%B6%E8%A1%A8%E7%AC%A6%E5%88%86%E9%9A%94%E5%80%BC">wikipida: 制表符分隔值</a><br>[2]. <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E9%80%97%E5%8F%B7%E5%88%86%E9%9A%94%E5%80%BC">wikipida: 逗号分隔值</a><br>[3]. <a target="_blank" rel="noopener" href="https://www.runoob.com/python/python-func-open.html">菜鸟教程：Python open() 函数</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Python/">Python</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/python/">python</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96-File-I-O/">文件读取(File I/O)</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8/">迭代器</a>
+                    
+                      <a class="hover-with-bg" href="/tags/csv%E6%96%87%E4%BB%B6/">csv文件</a>
+                    
+                      <a class="hover-with-bg" href="/tags/with/">with()</a>
+                    
+                      <a class="hover-with-bg" href="/tags/open/">open()</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/17/KDD99%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E7%89%B9%E5%BE%81(Features)%E4%BB%8B%E7%BB%8D/">
+                        <span class="hidden-mobile">KDD99数据集的特征(Features)介绍</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "cfMGSskrslq5bGWt4S9w22gj-gzGzoHsz",
+          app_key: "2vLAJpthzuCQMsvLO92iQUr1",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?8379290ea25ba5bb7ce74136a14368c2";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

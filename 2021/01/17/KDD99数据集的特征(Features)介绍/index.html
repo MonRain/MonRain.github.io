@@ -19,7 +19,7 @@
   <meta name="description" content="昔日，寒山问拾得曰：世间谤我、欺我、辱我、笑我、轻我、贱我、恶我、骗我，如何处治乎？拾得云：只是忍他、让他、由他、避他、敬他、不要理他，再待几年，你且看他!">
   <meta name="author" content="MonRain">
   <meta name="keywords" content="">
-  <title>为TensorFlow预处理KDD99数据集 - 寒山雨</title>
+  <title>KDD99数据集的特征(Features)介绍 - 寒山雨</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -164,7 +164,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="为TensorFlow预处理KDD99数据集">
+            <span class="h2" id="subtitle" title="KDD99数据集的特征(Features)介绍">
               
             </span>
 
@@ -196,7 +196,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      31
+      32
        分钟
     </span>
   
@@ -226,10 +226,10 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">为TensorFlow预处理KDD99数据集</h1>
+            <h1 style="display: none">KDD99数据集的特征(Features)介绍</h1>
             
             <div class="markdown-body">
-              <h1 id="为TensorFlow预处理KDD99数据集"><a href="#为TensorFlow预处理KDD99数据集" class="headerlink" title="为TensorFlow预处理KDD99数据集"></a>为TensorFlow预处理KDD99数据集</h1><h2 id="一、KDD99介绍"><a href="#一、KDD99介绍" class="headerlink" title="一、KDD99介绍"></a>一、KDD99介绍</h2><p>KDD99是一个用来从正常连接中监测非正常连接的数据集。产出于1999年Thrid International Knowlegde Discovery and Data Mining Tools Competition，其目的是建立一个稳定的的入侵检测系统。</p>
+              <h1 id="KDD99数据集的特征-Features-介绍"><a href="#KDD99数据集的特征-Features-介绍" class="headerlink" title="KDD99数据集的特征(Features)介绍"></a>KDD99数据集的特征(Features)介绍</h1><p>KDD99是一个用来从正常连接中监测非正常连接的数据集。产出于1999年Thrid International Knowlegde Discovery and Data Mining Tools Competition，其目的是建立一个稳定的的入侵检测系统。</p>
 <p>KDD99包含了置入攻击的军事网络环境中的记录。攻击可以分类为：</p>
 <ul>
 <li><strong>DoS攻击</strong>：Denial of Service</li>
@@ -240,12 +240,12 @@
 <p>KDD99数据集是 <em>DARPA数据集</em> 的 <strong>特征提取(Feature Extract)</strong> 版本（ <em>DARPA</em> 是原始数据集）KDD99对每个连接提取了 <strong>41</strong> 个特征，使用<strong>Bro-IDS</strong>工具对数据贴标签。</p>
 <p>其41个特征可以按以下方式分类：</p>
 <ul>
-<li>1-9    每个TCP连接的基本特征</li>
-<li>10-22    连接内部的内容特征，由领域内知识建议(suggested by domain konwledge)</li>
-<li>23-31    使用2秒时间窗激素那的流量特征(Traffic features computed using a two-second time window)</li>
-<li>32-42    主机特征(Host features)，用来评估持续时间再两秒钟以上的攻击</li>
+<li>1-9    TCP连接的基本特征</li>
+<li>10-22    TCP连接的内容特征</li>
+<li>23-31    基于时间的网络流量统计特征，使用2秒的时间窗(Traffic features computed using a two-second time window)</li>
+<li>32-41    基于主机的网络流量统计特征，主机特征(Host features)，用来评估持续时间在两秒钟以上的攻击</li>
 </ul>
-<table>
+<h2 id="TCP连接的基本特征"><a href="#TCP连接的基本特征" class="headerlink" title="TCP连接的基本特征"></a>TCP连接的基本特征</h2><table>
 <thead>
 <tr>
 <th align="center">feature name</th>
@@ -305,7 +305,7 @@
 <p>表1：TCP连接的基本特征</p>
 </center>
 
-<table>
+<h2 id="TCP连接的内容特征"><a href="#TCP连接的内容特征" class="headerlink" title="TCP连接的内容特征"></a>TCP连接的内容特征</h2><table>
 <thead>
 <tr>
 <th align="center">feature name</th>
@@ -385,7 +385,7 @@
 <p>表2：TCP连接的内容特征</p>
 </center>
 
-<table>
+<h2 id="基于时间的网络流量统计特征"><a href="#基于时间的网络流量统计特征" class="headerlink" title="基于时间的网络流量统计特征"></a>基于时间的网络流量统计特征</h2><table>
 <thead>
 <tr>
 <th align="center">feature name</th>
@@ -458,7 +458,7 @@ Table 3: Traffic features computed using a two-second time window.
 <p>表 3：基于时间的网络流量统计特征</p>
 </center>
 
-<table>
+<h2 id="基于主机的网络流量统计特征"><a href="#基于主机的网络流量统计特征" class="headerlink" title="基于主机的网络流量统计特征"></a>基于主机的网络流量统计特征</h2><table>
 <thead>
 <tr>
 <th align="center">feature name</th>
@@ -522,8 +522,7 @@ Table 3: Traffic features computed using a two-second time window.
 <p>表 4:基于主机的网络流量统计特征（<a target="_blank" rel="noopener" href="http://kdd.ics.uci.edu/databases/kddcup99/task.html">KDD99官网的task部分</a>没找到对应表格）</p>
 </center>
 
-
-<p>KDD99在研究者当中十分流行，研究者也对其本身做了很多工作：</p>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p>KDD99在研究者当中十分流行，研究者也对其本身做了很多工作：</p>
 <ul>
 <li>[*]减少特征数量，从最初的41个特征中选择最有用的特征</li>
 <li>[*]指出了KDD99的不足之处<blockquote>
@@ -535,9 +534,7 @@ Table 3: Traffic features computed using a two-second time window.
 </blockquote>
 </li>
 </ul>
-<p>本段参考：<br>[1]. CHAABOUNI N, MOSBAH M, ZEMMARI A, et al. Network Intrusion Detection for IoT Security Based on Learning Techniques [J]. Ieee Communications Surveys and Tutorials, 2019, 21(3): 2671-701.<br>[2]. <a target="_blank" rel="noopener" href="http://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html">KDD Cup 1999 Data</a><br>[3]. <a target="_blank" rel="noopener" href="https://mathpretty.com/10244.html">KDD99数据集与NSL-KDD数据集介绍</a> <em>BTW： 这篇博客对KDD99和NSL-KDD写的很详细</em><br>[4]. Song J, Takakura H, Okabe Y. Description of kyoto university benchmark data[J]. Available at link: <a target="_blank" rel="noopener" href="http://www.takakura.com/Kyoto_data/BenchmarkData-Description-v5.pdf">http://www.takakura.com/Kyoto_data/BenchmarkData-Description-v5.pdf</a> [Accessed on 15 March 2016], 2006.</p>
-<p>更多关于KDD99的文章：<br>[1]. Özgür A, Erdem H. A review of KDD99 dataset usage in intrusion detection and machine learning between 2010 and 2015[J]. PeerJ Preprints, 2016, 4: e1954v1.</p>
-<p>[未完成：2021-01-17]</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>[1]. CHAABOUNI N, MOSBAH M, ZEMMARI A, et al. Network Intrusion Detection for IoT Security Based on Learning Techniques [J]. Ieee Communications Surveys and Tutorials, 2019, 21(3): 2671-701.<br>[2]. <a target="_blank" rel="noopener" href="http://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html">KDD Cup 1999 Data</a><br>[3]. <a target="_blank" rel="noopener" href="https://mathpretty.com/10244.html">KDD99数据集与NSL-KDD数据集介绍</a> <em>BTW： 这篇博客对 KDD99 和 NSL-KDD 写的很详细</em><br>[4]. Song J, Takakura H, Okabe Y. Description of kyoto university benchmark data[J]. Available at link: <a target="_blank" rel="noopener" href="http://www.takakura.com/Kyoto_data/BenchmarkData-Description-v5.pdf">http://www.takakura.com/Kyoto_data/BenchmarkData-Description-v5.pdf</a> [Accessed on 15 March 2016], 2006.<br>[5]. Özgür A, Erdem H. A review of KDD99 dataset usage in intrusion detection and machine learning between 2010 and 2015[J]. PeerJ Preprints, 2016, 4: e1954v1.</p>
 
             </div>
             <hr>
@@ -555,8 +552,6 @@ Table 3: Traffic features computed using a two-second time window.
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/TensorFlow/">TensorFlow</a>
-                    
                       <a class="hover-with-bg" href="/tags/KDD99/">KDD99</a>
                     
                       <a class="hover-with-bg" href="/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/">信息安全</a>
@@ -573,6 +568,12 @@ Table 3: Traffic features computed using a two-second time window.
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2021/01/18/Python%E7%9A%84%E7%AC%A6%E5%8F%B7%E5%88%86%E9%9A%94%E5%80%BC%E6%A0%BC%E5%BC%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Python的符号分隔值格式(xsv)文件读取</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
