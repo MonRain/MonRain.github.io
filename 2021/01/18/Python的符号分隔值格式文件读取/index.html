@@ -281,7 +281,7 @@
 <figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elm"><span class="hljs-keyword">import</span> csv<br></code></pre></td></tr></table></figure>
 <p><a target="_blank" rel="noopener" href="https://docs.python.org/3/library/csv.html">Python csv Document</a></p>
 <p><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/csv.html">Python csv 官方文档</a></p>
-<h3 id="1csv文件的读取"><a href="#1csv文件的读取" class="headerlink" title="1csv文件的读取"></a>1csv文件的读取</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">csv.reader(csvfile, <span class="hljs-attribute">dialect</span>=<span class="hljs-string">&#x27;excel&#x27;</span>, *<span class="hljs-number">*f</span>mtparams)<br></code></pre></td></tr></table></figure>
+<h3 id="1、csv文件的读取"><a href="#1、csv文件的读取" class="headerlink" title="1、csv文件的读取"></a>1、csv文件的读取</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">csv.reader(csvfile, <span class="hljs-attribute">dialect</span>=<span class="hljs-string">&#x27;excel&#x27;</span>, *<span class="hljs-number">*f</span>mtparams)<br></code></pre></td></tr></table></figure>
 <ul>
 <li><code>return</code>: <code>reader</code>对象</li>
 <li><code>csvfile</code>: 文件路径</li>
@@ -294,7 +294,7 @@
 <p>dialect.delimiler 用于分隔字段的单字符，默认为逗号”,”<br>dialect.doublequole …<br>dialect.escapechar …<br>..</p>
 </blockquote>
 </blockquote>
-<h5 id="iterator迭代器"><a href="#iterator迭代器" class="headerlink" title="iterator迭代器"></a>iterator迭代器</h5><p>引子：csv.reader()使用的对象只需要下列两点，即可顺利打开</p>
+<h3 id="2、iterator迭代器"><a href="#2、iterator迭代器" class="headerlink" title="2、iterator迭代器"></a>2、iterator迭代器</h3><p>引子：csv.reader()使用的对象只需要下列两点，即可顺利打开</p>
 <blockquote>
 <ol>
 <li>满足iterator协议</li>
