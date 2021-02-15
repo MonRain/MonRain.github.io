@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="MonRain">
   <meta name="keywords" content="">
-  <title>hexo的安装与配置 - 寒山雨</title>
+  <title>Python获取list特定元素下标 - 寒山雨</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -152,7 +152,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="hexo的安装与配置">
+            <span class="h2" id="subtitle" title="Python获取list特定元素下标">
               
             </span>
 
@@ -162,8 +162,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-17 14:28" pubdate>
-        2021年1月17日 下午
+      <time datetime="2021-02-15 13:34" pubdate>
+        2021年2月15日 下午
       </time>
     </span>
   
@@ -174,7 +174,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      883 字
+      270 字
     </span>
   
 
@@ -184,7 +184,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      4
        分钟
     </span>
   
@@ -214,61 +214,22 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">hexo的安装与配置</h1>
+            <h1 style="display: none">Python获取list特定元素下标</h1>
             
             <div class="markdown-body">
-              <h1 id="Hexo的安装与初始配置"><a href="#Hexo的安装与初始配置" class="headerlink" title="Hexo的安装与初始配置"></a>Hexo的安装与初始配置</h1><h2 id="一、Hexo安装准备"><a href="#一、Hexo安装准备" class="headerlink" title="一、Hexo安装准备"></a>一、Hexo安装准备</h2><p>安装Hexo的前置需求有：</p>
-<ul>
-<li><strong>Node.js</strong>：主要是使用其中的npm包管理工具（<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">Hexo官网</a>建议使用Node.js 12.0版本，最低Node.js 10.13） </li>
-<li><strong>Git</strong>：版本控制工具，主要用于博客的版本控制、远端存储和同步</li>
-</ul>
-<h2 id="二、安装Hexo"><a href="#二、安装Hexo" class="headerlink" title="二、安装Hexo"></a>二、安装Hexo</h2><p>安装好上述软件需求后，在shell终端输入以下指令，即可完成安装Hexo。</p>
-<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">$ npm install -g hexo-<span class="hljs-keyword">cli</span><br></code></pre></td></tr></table></figure>
-<p>安装过程中可能遇到的问题：</p>
-<ol>
-<li>安装过程缓慢或卡在某个过程中不动弹。可以考虑修改npm的默认下载源，如<strong>淘宝镜像源</strong>。</li>
-<li>Windows可以在<strong>Git Bash</strong>中进行类似Linux中的指令。</li>
-</ol>
-<p>安装好hexo之后，如此使用：</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">$ npx hexo &lt;<span class="hljs-keyword">command</span>&gt;<br></code></pre></td></tr></table></figure>
-<p>为了方便起见，我们更倾向于直接使用hexo指令</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta"># hexo <span class="hljs-meta-string">&lt;command&gt;</span></span><br></code></pre></td></tr></table></figure>
-<ul>
-<li>方法一：可以考虑将hexo加入PATH</li>
-<li>方法二：设置alias hexo=’npx hexo’</li>
-<li>方法三：(Windows系统)，使用<strong>git bash</strong>貌似可以不用设置环境PATH。但是存在一个小问题，直接运行<strong>git bash</strong>无法正确运行hexo指令，但从文件夹窗口中使用右键菜单<strong>在此处打开git bash</strong>可以直接使用<code>hexo &lt;command&gt;</code></li>
-<li>方法三小问题的原因：<code>hexo &lt;command&gt;</code>需要在blog根目录下执行，因此其它路径会报错。</li>
-</ul>
-<h2 id="三、初始配置"><a href="#三、初始配置" class="headerlink" title="三、初始配置"></a>三、初始配置</h2><p>自此开始，默认使用简化的形式</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">$ hero &lt;<span class="hljs-keyword">command</span>&gt;<br></code></pre></td></tr></table></figure>
-<p>安装好Hexo之后，要初始化一个工作目录，类似于git中的</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp">$ git <span class="hljs-keyword">init</span><br></code></pre></td></tr></table></figure>
-<p>执行指令</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$</span> hexo init &lt;directory&gt;<br><span class="hljs-variable">$</span> <span class="hljs-built_in">cd</span> &lt;directory&gt;<br><span class="hljs-variable">$</span> npm install<br></code></pre></td></tr></table></figure>
-<p>逐条解析：</p>
-<ol>
-<li><code>hexo init &lt;directory&gt;</code>：格式化指定路径为hexo工作目录。</li>
-</ol>
-<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs tap">$ ll &lt;directory&gt;<br>total 116<br>-rw-r--r--<span class="hljs-number"> 1 </span><span class="hljs-number"> 197609 </span>   <span class="hljs-number"> 0 </span>  _config.landscape.yml<br>-rw-r--r--<span class="hljs-number"> 1 </span><span class="hljs-number"> 197609 </span><span class="hljs-number"> 2545 </span>  _config.yml<br>drwxr-xr-x<span class="hljs-number"> 1 </span><span class="hljs-number"> 197609 </span>   <span class="hljs-number"> 0 </span>  node_modules/<br>-rw-r--r--<span class="hljs-number"> 1 </span><span class="hljs-number"> 197609 </span> <span class="hljs-number"> 641 </span>  package.json<br>-rw-r--r--<span class="hljs-number"> 1 </span><span class="hljs-number"> 197609 </span>57736   package-lock.json<br>drwxr-xr-x<span class="hljs-number"> 1 </span><span class="hljs-number"> 197609 </span>   <span class="hljs-number"> 0 </span>  scaffolds/<br>drwxr-xr-x<span class="hljs-number"> 1 </span><span class="hljs-number"> 197609 </span>   <span class="hljs-number"> 0 </span>  source/<br>drwxr-xr-x<span class="hljs-number"> 1 </span><span class="hljs-number"> 197609 </span>   <span class="hljs-number"> 0 </span>  themes/<br></code></pre></td></tr></table></figure>
-<ol start="2">
-<li><code>cd &lt;directory&gt;</code>：切换到工作目录</li>
-<li><code>npm install</code>：使用<code>npm</code>根据<code>&lt;directory&gt;</code>中的配置文件下载相关的依赖文件。</li>
-</ol>
-<h2 id="四、个性化设置"><a href="#四、个性化设置" class="headerlink" title="四、个性化设置"></a>四、个性化设置</h2><p>关于hexo博客的个性化设置，离不开<code>&lt;hexo&gt;/_config.yml</code></p>
-<h3 id="1、设置博客标题、基本信息等"><a href="#1、设置博客标题、基本信息等" class="headerlink" title="1、设置博客标题、基本信息等"></a>1、设置博客标题、基本信息等</h3><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs makefile">$ vim _config.yml<br>...<br><span class="hljs-comment"># Site</span><br><span class="hljs-section">title: 设置博客标题</span><br><span class="hljs-section">subtitle: &#x27;&#x27;</span><br><span class="hljs-section">description: &#x27;&#x27;</span><br><span class="hljs-section">keywords:</span><br><span class="hljs-section">author: 作者姓名</span><br><span class="hljs-section">language: 语言，中文设置为zh即可</span><br><span class="hljs-section">timezone: 国内一般使用Asia/Shanghai即可</span><br>...<br></code></pre></td></tr></table></figure>
-<p>此处抛砖引玉，更多相关设置使用时实时查阅即可</p>
-<h3 id="2、设置博客主题-theme"><a href="#2、设置博客主题-theme" class="headerlink" title="2、设置博客主题(theme)"></a>2、设置博客主题(theme)</h3><p><a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">Hexo官网</a>共享了很多主题。</p>
-<p><img src="https://gitee.com/songz7026/image-pool/raw/master/note_hexo/hexo_theme.png" srcset="/img/loading.gif" alt="Hexo官网主题"></p>
-<p>任选一款进入，即可找到作者的github主页连接，在其中寻找hexo的主题仓库即可，一般在readme中都会详细介绍主题的安装方法。不过一般来说都是一样的。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> <span class="hljs-built_in">cd</span> &lt;directory&gt;</span><br><span class="hljs-meta">$</span><span class="bash"> git <span class="hljs-built_in">clone</span> &lt;github_theme仓库的连接&gt;</span><br></code></pre></td></tr></table></figure>
-<p>在此之后修改<code>_config.yml</code>中的<code>theme</code>即可</p>
-<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs clean"># Extensions<br>## Plugins: https:<span class="hljs-comment">//hexo.io/plugins/</span><br>## Themes: https:<span class="hljs-comment">//hexo.io/themes/</span><br>theme: 这里这里这里 theme名称填上去就可以了<br></code></pre></td></tr></table></figure>
-<p>个别theme会有自己的安装方法，按照readme详细做就可以了。</p>
-<h2 id="五、查看博客"><a href="#五、查看博客" class="headerlink" title="五、查看博客"></a>五、查看博客</h2><p>在shell中键入以下指令即可开启本地服务，从本地浏览器输入对应连接(下文对应链接为localhost:4000)即可查看</p>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">$ hexo <span class="hljs-keyword">server</span><br><span class="hljs-keyword">INFO</span>  Validating config<br><span class="hljs-keyword">INFO</span>  <span class="hljs-keyword">Start</span> processing<br><span class="hljs-keyword">INFO</span>  Hexo <span class="hljs-keyword">is</span> running at http://localhost:<span class="hljs-number">4000</span> . Press Ctrl+C <span class="hljs-keyword">to</span> stop.<br></code></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/songz7026/image-pool/raw/master/note_hexo/hexo_init_blog.png" srcset="/img/loading.gif" alt="初始状态博客首页"></p>
-<p>使用<code>-o</code>选项可以自动使用系统默认浏览器打开</p>
-<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta">$ hexo <span class="hljs-keyword">server</span> -o<br></code></pre></td></tr></table></figure>
+              <h1 id="python获取list特定元素下标"><a href="#python获取list特定元素下标" class="headerlink" title="python获取list特定元素下标"></a>python获取list特定元素下标</h1><p>反索引，一般情况我们通过索引获取list中的元素。<br>如：</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta">&gt;&gt;&gt;</span> <span class="python">a = [<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">6</span>]</span><br><span class="hljs-meta">&gt;&gt;&gt;</span> <span class="python">a[<span class="hljs-number">3</span>]</span><br>4<br></code></pre></td></tr></table></figure>
+<p>有些时候，我们已知list中的某些元素，但需要通过已知元素获得其在list中的索引位置。</p>
+<h2 id="方法1：利用builtin方法item-index-list"><a href="#方法1：利用builtin方法item-index-list" class="headerlink" title="方法1：利用builtin方法item.index(list)"></a>方法1：利用builtin方法item.index(list)</h2><figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta">&gt;&gt;&gt;</span> <span class="python">a = [<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">6</span>]</span><br><span class="hljs-meta">&gt;&gt;&gt;</span> <span class="python">a.index(<span class="hljs-number">3</span>)</span><br>2<br></code></pre></td></tr></table></figure>
+<p><strong>注意</strong> 如果list中存在重复值，这个方法只能获得第一个值的index。</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta">&gt;&gt;&gt;</span> <span class="python">a = [<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">6</span>]</span><br><span class="hljs-meta">&gt;&gt;&gt;</span> <span class="python">a.index(<span class="hljs-number">2</span>)</span><br>0<br></code></pre></td></tr></table></figure>
+<h2 id="方法2：enumerate-方法"><a href="#方法2：enumerate-方法" class="headerlink" title="方法2：enumerate()方法"></a>方法2：enumerate()方法</h2><figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta">&gt;&gt;&gt;</span> <span class="python">a = [<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">6</span>]</span><br><span class="hljs-meta">&gt;&gt;&gt;</span> <span class="python">e=<span class="hljs-built_in">enumerate</span>(a)</span><br><span class="hljs-meta">&gt;&gt;&gt;</span> <span class="python">e</span><br>&lt;enumerate object at 0x000001A6FF29D7C0&gt;<br><span class="hljs-meta">&gt;&gt;&gt;</span> <span class="python"><span class="hljs-built_in">list</span>(e)</span><br>[(0, 2), (1, 1), (2, 3), (3, 2), (4, 6)]<br></code></pre></td></tr></table></figure>
+<p>不难发现，<code>enumerate()</code>方法包含的值的形式为</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs axapta">(<span class="hljs-keyword">index</span> <span class="hljs-number">0</span>, value <span class="hljs-number">0</span>),(<span class="hljs-keyword">index</span> <span class="hljs-number">1</span>, value <span class="hljs-number">1</span>),(<span class="hljs-keyword">index</span> <span class="hljs-number">2</span>, value <span class="hljs-number">2</span>)...<br></code></pre></td></tr></table></figure>
+<p>可以通过利用这个信息获得元素的index</p>
+<figure class="highlight python-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python-repl"><span class="hljs-meta">&gt;&gt;&gt;</span> <span class="python">print([i <span class="hljs-keyword">for</span> i,x <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(a) <span class="hljs-keyword">if</span> x==<span class="hljs-number">2</span>])</span><br>[0, 3]<br></code></pre></td></tr></table></figure>
+<p><strong>参考</strong><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_24737639/article/details/78839678">python 获取list特定元素下标</a></p>
+
             </div>
             <hr>
             <div>
@@ -277,7 +238,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/hexo/">hexo</a>
+                      <a class="hover-with-bg" href="/categories/Python/">Python</a>
                     
                   </div>
                 
@@ -285,9 +246,11 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/hexo/">hexo</a>
+                      <a class="hover-with-bg" href="/tags/Python/">Python</a>
                     
-                      <a class="hover-with-bg" href="/tags/blog/">blog</a>
+                      <a class="hover-with-bg" href="/tags/%E6%97%A5%E7%A7%AF%E6%9C%88%E7%B4%AF/">日积月累</a>
+                    
+                      <a class="hover-with-bg" href="/tags/list%E6%9F%A5%E6%89%BE/">list查找</a>
                     
                   </div>
                 
@@ -300,15 +263,21 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/01/17/KDD99%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E7%89%B9%E5%BE%81(Features)%E4%BB%8B%E7%BB%8D/">
+                      <a href="/2021/02/15/Python%E5%B0%86list%E4%B8%ADstr%E8%BD%AC%E6%8D%A2%E4%B8%BA%E6%95%B0%E5%AD%97%E2%80%94%E2%80%94map()%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">KDD99数据集的特征(Features)介绍</span>
+                        <span class="hidden-mobile">Python将list中str转换为数字 —— map()函数使用方法</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2021/02/15/Java%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">Java基础笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
