@@ -27,7 +27,7 @@ True
 # Python 拟合正态分布
 
 **待解决的问题**：对一个一维的数串拟合到正态分布。
-所谓拟合正态分布，实质上算出均值$\mu$和方差$\sigma^2$即可确定分布。
+所谓拟合正态分布，实质上算出均值 $ \mu $ 和方差 $ \sigma^2 $ 即可确定分布。
 
 ```Python
 >>> X = [1,2,3,34,3,23,56,7,87,6,5,34,5678,7,654,3,45,67,8,3,2]
@@ -69,3 +69,14 @@ else:
 [1]. [python 中 ? : 三元表达式 的实现方式](https://blog.csdn.net/Sinchb/article/details/8081754)
 [1]. [三元运算符- Python进阶](https://eastlakeside.gitbook.io/interpy-zh/ternary_operators)
 [3]. [python中的三元表达式（三目运算符）](https://www.cnblogs.com/mywood/p/7416893.html)
+
+# 进度条工具TQDM
+
+[GitHub项目地址](https://github.com/tqdm/tqdm)
+[文档地址](https://tqdm.github.io/)
+
+看上去很酷炫的进度条工具，可以可视化**time consuming**的程序等待过程。
+
+使用方法在`PySAD`的[Example](https://pysad.readthedocs.io/en/latest/examples.html#example-full-usage)中有体现。
+
+![项目仓库中的示例](https://raw.githubusercontent.com/tqdm/img/master/tqdm.gif)

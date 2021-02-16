@@ -1,5 +1,5 @@
 ---
-title: Python好用的开源工具
+title: Python异常检测开源工具包
 categories: Python
 tags:
 - Python
@@ -37,13 +37,3 @@ tags:
 
 需要更多详情可以参考项目仓库和文档。
 
-# 进度条工具TQDM
-
-[GitHub项目地址](https://github.com/tqdm/tqdm)
-[文档地址](https://tqdm.github.io/)
-
-看上去很酷炫的进度条工具，可以可视化**time consuming**的程序等待过程。
-
-使用方法在`PySAD`的[Example](https://pysad.readthedocs.io/en/latest/examples.html#example-full-usage)中有体现。
-
-![项目仓库中的示例](https://raw.githubusercontent.com/tqdm/img/master/tqdm.gif)
