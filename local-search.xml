@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>在终端中打印多样化文字</title>
+    <link href="/2021/02/22/%E5%9C%A8%E7%BB%88%E7%AB%AF%E4%B8%AD%E6%89%93%E5%8D%B0%E5%A4%9A%E6%A0%B7%E5%8C%96%E6%96%87%E5%AD%97/"/>
+    <url>/2021/02/22/%E5%9C%A8%E7%BB%88%E7%AB%AF%E4%B8%AD%E6%89%93%E5%8D%B0%E5%A4%9A%E6%A0%B7%E5%8C%96%E6%96%87%E5%AD%97/</url>
+    
+    <content type="html"><![CDATA[<h1 id="在终端中打印多样化文字"><a href="#在终端中打印多样化文字" class="headerlink" title="在终端中打印多样化文字"></a>在终端中打印多样化文字</h1><p>先给出几种环境下的解决方案：</p><p>在Python中：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">print(<span class="hljs-string">&quot;\033[31;43;1mError!\033[0m&quot;</span>)<br></code></pre></td></tr></table></figure><p>在shell中：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">echo &quot;\e[31;43;1mError\!\e[0m&quot;<br><span class="hljs-meta">#</span><span class="bash"> 或</span><br>echo -e &quot;\e[31;43;1mError\!\e[0m&quot;<br><span class="hljs-meta">#</span><span class="bash"> -e 参数用于启用 <span class="hljs-built_in">echo</span> 命令控制符转码</span><br></code></pre></td></tr></table></figure><p>在C++中：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">std</span>:<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;\033[31;43;1m&quot;</span> &lt;&lt; <span class="hljs-string">&quot;Error!&quot;</span> &lt;&lt; <span class="hljs-string">&quot;\033[0m&quot;</span> &lt;&lt; <span class="hljs-built_in">std</span>:<span class="hljs-built_in">endl</span>;<br></code></pre></td></tr></table></figure><p>可以看出在多种环境下，解决这个问题的方案基本上没有区别，因为终端的字符颜色是用转义序列控制的，是文本模式下的系统显示功能，和具体的语言无关。转义序列是以ESC开头,即用\033来完成（ESC的ASCII码用十进制表示是27，用八进制表示就是033）。</p><p>下面以字符串<code>&#39;\e[31;43;1mError!\e[0m&#39;</code>为例说明：</p><p>开头的<code>\e[31;43;1m</code>符号释义：</p><ul><li><p><code>\e</code>: 代表开始ANSI Escape code</p><blockquote><ol><li>ANSI Escape code<br>终端用于文本字符的输入和输出，ASCII编码中有些字符是不能用来打印显示的，比如’\a’ 0x7代表响铃，’\n’ 0x0A 代表换行，这些字符被称为控制符。<br>在此之中，控制符 ‘\e’ 0x1B，这个字符代表 ESC ，即键盘上 ESC 按键的作用。ESC 是单词 escape 的缩写，即逃逸的意思。文本中出现这个转义字符，代表其后方的字符是ANSI Escape code编码。<br>ANSI Escape code编码中有专门控制字符颜色的控制符，例如：\e[37;44;4;1m</li><li>因为 \e 控制符的16进制码为 0x1B ， 8 进制码为 033 ，所以以下表示方式等价：<br>\e[37;44;4;1mMCC\e[0m<br>\x1b[37;44;4;1mMCC\x1b[0m<br>\x1B[37;44;4;1mMCC\x1B[0m<br>\033[37;44;4;1mMCC\033[0m</li></ol></blockquote></li><li><p><code>[</code>: 代表转义序列开始符 CSI，Control Sequence Introducer</p></li><li><p><code>37;44;4;1</code>: 代表以; 分隔的文本样式控制符，其中 37 代表文本前景色为白色，44代表背景为蓝色，4代表下划线，1代表加粗。</p><blockquote><p>由于在 前景色、背景色、显示样式  之中没有重复的值，不会造成混淆，因此放置顺序可以自由调整。而且显示样式也可以使用多个。</p></blockquote></li><li><p><code>m</code>: 代表结束控制符序列</p></li></ul><p>结尾的<code>\e[0m</code>字符释义</p><ul><li><code>\e</code>: 代表开始ANSI Escape code</li><li><code>[</code>: 代表转义序列开始符 CSI，Control Sequence Introducer</li><li><code>0</code>: 代表重置文本样式——说明样式自定义到此结束，后边使用默认样式，不再适用前面的定义</li><li><code>m</code>: 代表结束控制符序列</li></ul><p>总结一下，解决方案分为三部分：<code>&quot;前缀 文本 后缀&quot;</code>（中间不必有空格）</p><p>测试：</p><p><img src="https://gitee.com/songz7026/image-pool/raw/master/Python/%E7%BB%88%E7%AB%AF%E5%BD%A9%E8%89%B2%E8%BE%93%E5%87%BA.jpg" alt="终端彩色输出"></p><p>下面简要概括（搬运）一下可选的样式参数</p><table><thead><tr><th>显示方式</th><th>效果</th><th>前景色</th><th>背景色</th><th>颜色描述</th></tr></thead><tbody><tr><td>0</td><td>终端默认设置</td><td>30</td><td>40</td><td>黑色</td></tr><tr><td>1</td><td>高亮显示（加粗）</td><td>31</td><td>41</td><td>红色</td></tr><tr><td>4</td><td>使用下划线</td><td>32</td><td>42</td><td>绿色</td></tr><tr><td>5</td><td>闪烁</td><td>33</td><td>43</td><td>黄色</td></tr><tr><td>7</td><td>反白显示</td><td>34</td><td>44</td><td>蓝色</td></tr><tr><td>8</td><td>不可见</td><td>35</td><td>45</td><td>紫红色</td></tr><tr><td>22</td><td>非高亮显示</td><td>36</td><td>46</td><td>青蓝色</td></tr><tr><td>24</td><td>去下划线</td><td>37</td><td>47</td><td>白色</td></tr><tr><td>25</td><td>去闪烁</td><td></td><td></td><td></td></tr><tr><td>27</td><td>非反白显示</td><td></td><td></td><td></td></tr><tr><td>28</td><td>可见</td><td></td><td></td><td></td></tr></tbody></table><p>参考文章中有对可选参数十分详细的介绍，[3]中尤为详细。</p><p><strong>参考</strong><br>[1]. <a href="https://blog.csdn.net/wls666/article/details/100867234?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control&dist_request_id=c8f28b2e-ba9c-4134-89a4-73aaf8ed5c40&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control">python中print打印显示颜色</a><br>[2]. <a href="https://leojhonsong.github.io/zh-CN/2019/09/12/Linux%E7%BB%88%E7%AB%AF%E5%91%88%E7%8E%B0%E5%BD%A9%E8%89%B2%E8%BE%93%E5%87%BA/">Linux终端呈现彩色输出</a><br>[3]. <a href="https://segmentfault.com/a/1190000012666612">在终端中输出彩色文字</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Python</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Python</tag>
+      
+      <tag>终端</tag>
+      
+      <tag>打印样式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Python异常检测开源工具包</title>
     <link href="/2021/02/15/Python%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E5%BC%80%E6%BA%90%E5%B7%A5%E5%85%B7%E5%8C%85/"/>
     <url>/2021/02/15/Python%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E5%BC%80%E6%BA%90%E5%B7%A5%E5%85%B7%E5%8C%85/</url>
@@ -251,35 +280,6 @@
       <tag>hexo</tag>
       
       <tag>blog</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>在终端中打印多样化文字</title>
-    <link href="/2021/01/17/%E5%9C%A8%E7%BB%88%E7%AB%AF%E4%B8%AD%E6%89%93%E5%8D%B0%E5%A4%9A%E6%A0%B7%E5%8C%96%E6%96%87%E5%AD%97/"/>
-    <url>/2021/01/17/%E5%9C%A8%E7%BB%88%E7%AB%AF%E4%B8%AD%E6%89%93%E5%8D%B0%E5%A4%9A%E6%A0%B7%E5%8C%96%E6%96%87%E5%AD%97/</url>
-    
-    <content type="html"><![CDATA[<h1 id="在终端中打印多样化文字"><a href="#在终端中打印多样化文字" class="headerlink" title="在终端中打印多样化文字"></a>在终端中打印多样化文字</h1><p>先给出几种环境下的解决方案：</p><p>在Python中：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">print(<span class="hljs-string">&quot;\033[31;43;1mError!\033[0m&quot;</span>)<br></code></pre></td></tr></table></figure><p>在shell中：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">echo &quot;\e[31;43;1mError\!\e[0m&quot;<br><span class="hljs-meta">#</span><span class="bash"> 或</span><br>echo -e &quot;\e[31;43;1mError\!\e[0m&quot;<br><span class="hljs-meta">#</span><span class="bash"> -e 参数用于启用 <span class="hljs-built_in">echo</span> 命令控制符转码</span><br></code></pre></td></tr></table></figure><p>在C++中：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-built_in">std</span>:<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">&quot;\033[31;43;1m&quot;</span> &lt;&lt; <span class="hljs-string">&quot;Error!&quot;</span> &lt;&lt; <span class="hljs-string">&quot;\033[0m&quot;</span> &lt;&lt; <span class="hljs-built_in">std</span>:<span class="hljs-built_in">endl</span>;<br></code></pre></td></tr></table></figure><p>可以看出在多种环境下，解决这个问题的方案基本上没有区别，因为终端的字符颜色是用转义序列控制的，是文本模式下的系统显示功能，和具体的语言无关。转义序列是以ESC开头,即用\033来完成（ESC的ASCII码用十进制表示是27，用八进制表示就是033）。</p><p>下面以字符串<code>&#39;\e[31;43;1mError!\e[0m&#39;</code>为例说明：</p><p>开头的<code>\e[31;43;1m</code>符号释义：</p><ul><li><p><code>\e</code>: 代表开始ANSI Escape code</p><blockquote><ol><li>ANSI Escape code<br>终端用于文本字符的输入和输出，ASCII编码中有些字符是不能用来打印显示的，比如’\a’ 0x7代表响铃，’\n’ 0x0A 代表换行，这些字符被称为控制符。<br>在此之中，控制符 ‘\e’ 0x1B，这个字符代表 ESC ，即键盘上 ESC 按键的作用。ESC 是单词 escape 的缩写，即逃逸的意思。文本中出现这个转义字符，代表其后方的字符是ANSI Escape code编码。<br>ANSI Escape code编码中有专门控制字符颜色的控制符，例如：\e[37;44;4;1m</li><li>因为 \e 控制符的16进制码为 0x1B ， 8 进制码为 033 ，所以以下表示方式等价：<br>\e[37;44;4;1mMCC\e[0m<br>\x1b[37;44;4;1mMCC\x1b[0m<br>\x1B[37;44;4;1mMCC\x1B[0m<br>\033[37;44;4;1mMCC\033[0m</li></ol></blockquote></li><li><p><code>[</code>: 代表转义序列开始符 CSI，Control Sequence Introducer</p></li><li><p><code>37;44;4;1</code>: 代表以; 分隔的文本样式控制符，其中 37 代表文本前景色为白色，44代表背景为蓝色，4代表下划线，1代表加粗。</p><blockquote><p>由于在 前景色、背景色、显示样式  之中没有重复的值，不会造成混淆，因此放置顺序可以自由调整。而且显示样式也可以使用多个。</p></blockquote></li><li><p><code>m</code>: 代表结束控制符序列</p></li></ul><p>结尾的<code>\e[0m</code>字符释义</p><ul><li><code>\e</code>: 代表开始ANSI Escape code</li><li><code>[</code>: 代表转义序列开始符 CSI，Control Sequence Introducer</li><li><code>0</code>: 代表重置文本样式——说明样式自定义到此结束，后边使用默认样式，不再适用前面的定义</li><li><code>m</code>: 代表结束控制符序列</li></ul><p>总结一下，解决方案分为三部分：<code>&quot;前缀 文本 后缀&quot;</code>（中间不必有空格）</p><p>测试：</p><p><img src="https://gitee.com/songz7026/image-pool/raw/master/Python/%E7%BB%88%E7%AB%AF%E5%BD%A9%E8%89%B2%E8%BE%93%E5%87%BA.jpg" alt="终端彩色输出"></p><p>下面简要概括（搬运）一下可选的样式参数</p><table><thead><tr><th>显示方式</th><th>效果</th><th>前景色</th><th>背景色</th><th>颜色描述</th></tr></thead><tbody><tr><td>0</td><td>终端默认设置</td><td>30</td><td>40</td><td>黑色</td></tr><tr><td>1</td><td>高亮显示（加粗）</td><td>31</td><td>41</td><td>红色</td></tr><tr><td>4</td><td>使用下划线</td><td>32</td><td>42</td><td>绿色</td></tr><tr><td>5</td><td>闪烁</td><td>33</td><td>43</td><td>黄色</td></tr><tr><td>7</td><td>反白显示</td><td>34</td><td>44</td><td>蓝色</td></tr><tr><td>8</td><td>不可见</td><td>35</td><td>45</td><td>紫红色</td></tr><tr><td>22</td><td>非高亮显示</td><td>36</td><td>46</td><td>青蓝色</td></tr><tr><td>24</td><td>去下划线</td><td>37</td><td>47</td><td>白色</td></tr><tr><td>25</td><td>去闪烁</td><td></td><td></td><td></td></tr><tr><td>27</td><td>非反白显示</td><td></td><td></td><td></td></tr><tr><td>28</td><td>可见</td><td></td><td></td><td></td></tr></tbody></table><p>参考文章中有对可选参数十分详细的介绍，[3]中尤为详细。</p><p><strong>参考</strong><br>[1]. <a href="https://blog.csdn.net/wls666/article/details/100867234?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control&dist_request_id=c8f28b2e-ba9c-4134-89a4-73aaf8ed5c40&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.control">python中print打印显示颜色</a><br>[2]. <a href="https://leojhonsong.github.io/zh-CN/2019/09/12/Linux%E7%BB%88%E7%AB%AF%E5%91%88%E7%8E%B0%E5%BD%A9%E8%89%B2%E8%BE%93%E5%87%BA/">Linux终端呈现彩色输出</a><br>[3]. <a href="https://segmentfault.com/a/1190000012666612">在终端中输出彩色文字</a></p>]]></content>
-    
-    
-    <categories>
-      
-      <category>Python</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>Python</tag>
-      
-      <tag>终端</tag>
-      
-      <tag>打印样式</tag>
       
     </tags>
     
