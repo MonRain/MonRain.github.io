@@ -19,9 +19,25 @@
   <meta name="description" content="">
   <meta name="author" content="MonRain">
   <meta name="keywords" content="">
-  <title>归档 - 寒山雨</title>
+  <title>数据结构：二叉树的遍历 - 寒山雨</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
 
@@ -49,7 +65,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -136,9 +152,46 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="归档">
+            <span class="h2" id="subtitle" title="数据结构：二叉树的遍历">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-01 19:27" pubdate>
+        2021年3月1日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      289 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      3
+       分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -151,64 +204,143 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 11 篇文章</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2021</p>
-    
-    <a href="/2021/02/22/%E5%9C%A8%E7%BB%88%E7%AB%AF%E4%B8%AD%E6%89%93%E5%8D%B0%E5%A4%9A%E6%A0%B7%E5%8C%96%E6%96%87%E5%AD%97/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">在终端中打印多样化文字</span>
-      <time style="float: right;">02-22</time>
-    </a>
-  
-    
-    <a href="/2021/02/15/Python%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E5%BC%80%E6%BA%90%E5%B7%A5%E5%85%B7%E5%8C%85/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Python异常检测开源工具包</span>
-      <time style="float: right;">02-15</time>
-    </a>
-  
-    
-    <a href="/2021/02/15/Python%E5%B0%86list%E4%B8%ADstr%E8%BD%AC%E6%8D%A2%E4%B8%BA%E6%95%B0%E5%AD%97%E2%80%94%E2%80%94map()%E5%87%BD%E6%95%B0%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Python将list中str转换为数字 —— map()函数使用方法</span>
-      <time style="float: right;">02-15</time>
-    </a>
-  
-    
-    <a href="/2021/02/15/Python%E8%8E%B7%E5%8F%96list%E7%89%B9%E5%AE%9A%E5%85%83%E7%B4%A0%E4%B8%8B%E6%A0%87/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Python获取list特定元素下标</span>
-      <time style="float: right;">02-15</time>
-    </a>
-  
-    
-    <a href="/2021/02/15/Java%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Java基础笔记</span>
-      <time style="float: right;">02-15</time>
-    </a>
-  
-</div>
 
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">数据结构：二叉树的遍历</h1>
+            
+            <div class="markdown-body">
+              <h1 id="数据结构：二叉树的遍历"><a href="#数据结构：二叉树的遍历" class="headerlink" title="数据结构：二叉树的遍历"></a>数据结构：二叉树的遍历</h1><p>相比线性数据类型，树本身是一种递归结构，因此可以有多种方式遍历。<br>树之节点的遍历可以分为三个步骤</p>
+<blockquote>
+<p>对当前节点进行操作（访问）<br>去往左子节点遍历<br>去往右子节点遍历</p>
+</blockquote>
+<p>二叉树的遍历一般可以分为深度优先遍历和广度优先遍历。</p>
+<h2 id="1-深度优先遍历"><a href="#1-深度优先遍历" class="headerlink" title="1. 深度优先遍历"></a>1. 深度优先遍历</h2><p>深度优先遍历由上述三个步骤的先后顺序不同又可以分为：前序、中序、后序遍历</p>
+<ul>
+<li>前序遍历：根节点访问——去左子节点——去右子节点</li>
+<li>中序遍历：去左子节点——根节点访问——去右子节点</li>
+<li>后序遍历：去左子节点——去右子节点——根节点访问</li>
+</ul>
+<p>其实可以看成，是以根节点的位置命名的前、中、后序遍历。</p>
+<p>前序遍历</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Sorted_binary_tree_preorder.svg/330px-Sorted_binary_tree_preorder.svg.png" srcset="/img/loading.gif" alt="前序遍历.png"></p>
+<p>中序遍历</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Sorted_binary_tree_inorder.svg/330px-Sorted_binary_tree_inorder.svg.png" srcset="/img/loading.gif" alt="中序遍历.png"></p>
+<p>后序遍历</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Sorted_binary_tree_postorder.svg/330px-Sorted_binary_tree_postorder.svg.png" srcset="/img/loading.gif" alt="后序遍历.png"></p>
+<p>其中黑点代表在此访问该节点</p>
+<h2 id="2-广度优先遍历（按层次遍历）"><a href="#2-广度优先遍历（按层次遍历）" class="headerlink" title="2. 广度优先遍历（按层次遍历）"></a>2. 广度优先遍历（按层次遍历）</h2><p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Sorted_binary_tree_breadth-first_traversal.svg/330px-Sorted_binary_tree_breadth-first_traversal.svg.png" srcset="/img/loading.gif" alt="层次遍历.png"></p>
+<p><strong>参考</strong>：<br><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86">https://zh.wikipedia.org/wiki/%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/My_Jobs/article/details/43451187">https://blog.csdn.net/My_Jobs/article/details/43451187</a>_</p>
 
-
-
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%81%8D%E5%8E%86/">遍历</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/02/22/%E5%9C%A8%E7%BB%88%E7%AB%AF%E4%B8%AD%E6%89%93%E5%8D%B0%E5%A4%9A%E6%A0%B7%E5%8C%96%E6%96%87%E5%AD%97/">
+                        <span class="hidden-mobile">在终端中打印多样化文字</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "cfMGSskrslq5bGWt4S9w22gj-gzGzoHsz",
+          app_key: "2vLAJpthzuCQMsvLO92iQUr1",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -313,9 +445,15 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
 
 
 
