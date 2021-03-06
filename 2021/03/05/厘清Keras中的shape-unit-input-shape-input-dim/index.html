@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="MonRain">
   <meta name="keywords" content="">
-  <title>数据结构：二叉树的遍历 - 寒山雨</title>
+  <title>厘清Keras中的shape,unit,input_shape - 寒山雨</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -152,7 +152,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="数据结构：二叉树的遍历">
+            <span class="h2" id="subtitle" title="厘清Keras中的shape,unit,input_shape">
               
             </span>
 
@@ -162,8 +162,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-01 19:27" pubdate>
-        2021年3月1日 晚上
+      <time datetime="2021-03-05 16:06" pubdate>
+        2021年3月5日 下午
       </time>
     </span>
   
@@ -174,7 +174,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      289 字
+      663 字
     </span>
   
 
@@ -184,7 +184,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      7
        分钟
     </span>
   
@@ -214,30 +214,40 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">数据结构：二叉树的遍历</h1>
+            <h1 style="display: none">厘清Keras中的shape,unit,input_shape</h1>
             
             <div class="markdown-body">
-              <h1 id="数据结构：二叉树的遍历"><a href="#数据结构：二叉树的遍历" class="headerlink" title="数据结构：二叉树的遍历"></a>数据结构：二叉树的遍历</h1><p>相比线性数据类型，树本身是一种递归结构，因此可以有多种方式遍历。<br>树之节点的遍历可以分为三个步骤</p>
-<blockquote>
-<p>对当前节点进行操作（访问）<br>去往左子节点遍历<br>去往右子节点遍历</p>
-</blockquote>
-<p>二叉树的遍历一般可以分为深度优先遍历和广度优先遍历。</p>
-<h2 id="1-深度优先遍历"><a href="#1-深度优先遍历" class="headerlink" title="1. 深度优先遍历"></a>1. 深度优先遍历</h2><p>深度优先遍历由上述三个步骤的先后顺序不同又可以分为：前序、中序、后序遍历</p>
+              <h1 id="厘清Keras中的shape-unit-input-shape"><a href="#厘清Keras中的shape-unit-input-shape" class="headerlink" title="厘清Keras中的shape,unit,input_shape"></a>厘清Keras中的shape,unit,input_shape</h1><p>新人（没错正是在下）在个性化Github上的Keras代码时，常常会遇到各种输入输出维度的报错，因此打算仔细梳理一下关于里面的shape, unit(Dense等Layer层的必需参数), input_shape, input_dim等参数。</p>
+<h2 id="顾名思义TensorFlow"><a href="#顾名思义TensorFlow" class="headerlink" title="顾名思义TensorFlow"></a>顾名思义TensorFlow</h2><p>由于TensorFLow以及将Keras封为御用前端，因此笔者的所有Keras代码都是基于<code>tensorflow.keras</code>包实现的。但这里要说的不是二者的关系，而是借助这个<code>tensorflow</code>这个名称了解Keras的各层之间的运行关系。</p>
+<p>Tensor本意为“张量”，可以理解为高维度的向量，也可姑且理解为一组带着奇怪复杂形状的数据。而Flow本意为“流”，二者组成TensorFlow顾名思义解释为<strong>张量流</strong>。</p>
+<p>也就是说，我们可以吧机器学习模型的运行看成一些<strong>张量</strong>组成的<strong>流</strong>。</p>
+<p>这样讲还是很抽象，不过经过下面对各种shape的解释之后就很容易理解了。</p>
+<h2 id="shape"><a href="#shape" class="headerlink" title="shape"></a>shape</h2><p>shape在keras中是一个<code>turple</code>。</p>
+<p><code>shape=(30,4,10) means</code> 意味着一个三维数组：</p>
 <ul>
-<li>前序遍历：根节点访问——去左子节点——去右子节点</li>
-<li>中序遍历：去左子节点——根节点访问——去右子节点</li>
-<li>后序遍历：去左子节点——去右子节点——根节点访问</li>
+<li>维度1 - 30长度</li>
+<li>维度2 - 4长度</li>
+<li>维度3 - 10长度</li>
 </ul>
-<p>其实可以看成，是以根节点的位置命名的前、中、后序遍历。</p>
-<p>前序遍历</p>
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Sorted_binary_tree_preorder.svg/330px-Sorted_binary_tree_preorder.svg.png" srcset="/img/loading.gif" alt="前序遍历.png"></p>
-<p>中序遍历</p>
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Sorted_binary_tree_inorder.svg/330px-Sorted_binary_tree_inorder.svg.png" srcset="/img/loading.gif" alt="中序遍历.png"></p>
-<p>后序遍历</p>
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Sorted_binary_tree_postorder.svg/330px-Sorted_binary_tree_postorder.svg.png" srcset="/img/loading.gif" alt="后序遍历.png"></p>
-<p>其中黑点代表在此访问该节点</p>
-<h2 id="2-广度优先遍历（按层次遍历）"><a href="#2-广度优先遍历（按层次遍历）" class="headerlink" title="2. 广度优先遍历（按层次遍历）"></a>2. 广度优先遍历（按层次遍历）</h2><p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Sorted_binary_tree_breadth-first_traversal.svg/330px-Sorted_binary_tree_breadth-first_traversal.svg.png" srcset="/img/loading.gif" alt="层次遍历.png"></p>
-<p><strong>参考</strong>：<br><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86">https://zh.wikipedia.org/wiki/%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/My_Jobs/article/details/43451187">https://blog.csdn.net/My_Jobs/article/details/43451187</a>_</p>
+<p>对于特定的层来说，可以去参考文档。这里列举几个常用的玩意儿。</p>
+<blockquote>
+<ul>
+<li>Dense layers: (batch_size, input_size)<br>or (batch_size, optional,…,optional, input_size)</li>
+<li>2D convolutional layers:<br>  if using channels_last: (batch_size, imageside1, imageside2, channels)<br>  if using channels_first: (batch_size, channels, imageside1, imageside2)</li>
+<li>1D convolutions and recurrent layers: (batch_size, sequence_length, features)</li>
+</ul>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/a/50235563/2097240">Details on how to prepare data for recurrent layers</a></p>
+<p>一般来说就是<code>(batch_size, bulabula)</code></p>
+<h2 id="问题：第一层的Dense-unit-…-和input-shape有啥区别呢？"><a href="#问题：第一层的Dense-unit-…-和input-shape有啥区别呢？" class="headerlink" title="问题：第一层的Dense(unit,…)和input_shape有啥区别呢？"></a>问题：第一层的Dense(unit,…)和input_shape有啥区别呢？</h2><p>这就体现出最初的顾名思义TensorFlow了。</p>
+<p><img src="https://gitee.com/songz7026/image-pool/raw/master/Python/Keras_unit_inputshape.jpg" srcset="/img/loading.gif" alt="本图片非原创，来源于参考链接"></p>
+<p>对于</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-function"><span class="hljs-title">Dense</span>(<span class="hljs-params">unit,input_shape,...</span>)</span><br></code></pre></td></tr></table></figure>
+<p><code>unit</code>: 就是该层的单元数，也即该层输出的尺寸。<br><code>input_shape</code>: 其实这个参数和这个层<strong>没什么关系</strong>，它的使命是告诉这个层未来的输入应该是什么样的（这句话像是废话）。下面详细说一说这个<code>input_shape</code>：</p>
+<p>在Keras中，我们定义的都是<code>Layers</code>，也就是各个隐藏层。但是<code>Layers</code>之间的各种复杂关系我们不需要关心，但是在这里我们说一个概念：层之间流动了是<strong>Tensor</strong>，也就是一堆<strong>上一层计算得到</strong>的复杂形状的数据流给<strong>下一层</strong>供接下来计算。</p>
+<p><strong>我们定义的第一个Layers其实并不是输入层(Input Layer), 而是第一个隐藏层(hidden layer 1)。</strong></p>
+<p>因此在此之前的输入层到第一隐藏层的<strong>Tensor</strong>是Keras接触不到的，只能由智慧的你来告诉他，因此才出现了<code>Input</code>层，实际上它是一个<strong>Tensor</strong>。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/44747343/keras-input-explanation-input-shape-units-batch-size-dim-etc">Stack overflow: Keras input explanation: input_shape, units, batch_size, dim, etc</a></p>
 
             </div>
             <hr>
@@ -247,7 +257,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                      <a class="hover-with-bg" href="/categories/TensorFlow/">TensorFlow</a>
                     
                   </div>
                 
@@ -255,13 +265,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                      <a class="hover-with-bg" href="/tags/Keras/">Keras</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">二叉树</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E9%81%8D%E5%8E%86/">遍历</a>
+                      <a class="hover-with-bg" href="/tags/TensorFlow/">TensorFlow</a>
                     
                   </div>
                 
@@ -274,18 +280,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/03/05/%E5%8E%98%E6%B8%85Keras%E4%B8%AD%E7%9A%84shape-unit-input-shape-input-dim/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">厘清Keras中的shape,unit,input_shape</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/02/22/%E5%9C%A8%E7%BB%88%E7%AB%AF%E4%B8%AD%E6%89%93%E5%8D%B0%E5%A4%9A%E6%A0%B7%E5%8C%96%E6%96%87%E5%AD%97/">
-                        <span class="hidden-mobile">在终端中打印多样化文字</span>
+                      <a href="/2021/03/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%9A%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86/">
+                        <span class="hidden-mobile">数据结构：二叉树的遍历</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
