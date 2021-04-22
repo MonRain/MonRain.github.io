@@ -19,7 +19,7 @@
   <meta name="description" content="">
   <meta name="author" content="MonRain">
   <meta name="keywords" content="">
-  <title>厘清Keras中的shape,unit,input_shape - 寒山雨</title>
+  <title>线程的基本操作 - 寒山雨</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -152,7 +152,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="厘清Keras中的shape,unit,input_shape">
+            <span class="h2" id="subtitle" title="线程的基本操作">
               
             </span>
 
@@ -162,8 +162,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-05 16:06" pubdate>
-        2021年3月5日 下午
+      <time datetime="2021-04-22 14:28" pubdate>
+        2021年4月22日 下午
       </time>
     </span>
   
@@ -174,7 +174,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      663 字
+      436 字
     </span>
   
 
@@ -184,7 +184,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      5
        分钟
     </span>
   
@@ -214,40 +214,23 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">厘清Keras中的shape,unit,input_shape</h1>
+            <h1 style="display: none">线程的基本操作</h1>
             
             <div class="markdown-body">
-              <h1 id="厘清Keras中的shape-unit-input-shape"><a href="#厘清Keras中的shape-unit-input-shape" class="headerlink" title="厘清Keras中的shape,unit,input_shape"></a>厘清Keras中的shape,unit,input_shape</h1><p>新人（没错正是在下）在个性化Github上的Keras代码时，常常会遇到各种输入输出维度的报错，因此打算仔细梳理一下关于里面的shape, unit(Dense等Layer层的必需参数), input_shape, input_dim等参数。</p>
-<h2 id="顾名思义TensorFlow"><a href="#顾名思义TensorFlow" class="headerlink" title="顾名思义TensorFlow"></a>顾名思义TensorFlow</h2><p>由于TensorFLow以及将Keras封为御用前端，因此笔者的所有Keras代码都是基于<code>tensorflow.keras</code>包实现的。但这里要说的不是二者的关系，而是借助这个<code>tensorflow</code>这个名称了解Keras的各层之间的运行关系。</p>
-<p>Tensor本意为“张量”，可以理解为高维度的向量，也可姑且理解为一组带着奇怪复杂形状的数据。而Flow本意为“流”，二者组成TensorFlow顾名思义解释为<strong>张量流</strong>。</p>
-<p>也就是说，我们可以吧机器学习模型的运行看成一些<strong>张量</strong>组成的<strong>流</strong>。</p>
-<p>这样讲还是很抽象，不过经过下面对各种shape的解释之后就很容易理解了。</p>
-<h2 id="shape"><a href="#shape" class="headerlink" title="shape"></a>shape</h2><p>shape在keras中是一个<code>turple</code>。</p>
-<p><code>shape=(30,4,10) means</code> 意味着一个三维数组：</p>
-<ul>
-<li>维度1 - 30长度</li>
-<li>维度2 - 4长度</li>
-<li>维度3 - 10长度</li>
-</ul>
-<p>对于特定的层来说，可以去参考文档。这里列举几个常用的玩意儿。</p>
+              <h1 id="线程的基本操作"><a href="#线程的基本操作" class="headerlink" title="线程的基本操作"></a>线程的基本操作</h1><h2 id="线程的创建"><a href="#线程的创建" class="headerlink" title="线程的创建"></a>线程的创建</h2><h3 id="基本的创建线程操作"><a href="#基本的创建线程操作" class="headerlink" title="基本的创建线程操作"></a>基本的创建线程操作</h3><p>在Java中，线程操作被包装成了<code>Thread</code>类，因此使用</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs autohotkey"><span class="hljs-keyword">Thread</span> myThread = <span class="hljs-keyword">new</span> <span class="hljs-keyword">Thread</span>()<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
+<p>即可创建一个线程。</p>
+<p>在此线程一般使用<code>myThread.start()</code>方法来启动，表现为新的线程执行一次内置的<code>run()</code>方法。但默认状态下，<code>run()</code>方法并不执行任何操作，是一个空方法。</p>
+<p>对于一个自定义线程来说，可以继承<code>Thread</code>类之后重写<code>run()</code>方法。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs scala">public <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyThread</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Thread</span></span>&#123;<br>	<span class="hljs-meta">@Override</span><br>	public void run()&#123;<br>		<span class="hljs-type">System</span>.out.println(<span class="hljs-string">&quot;This is a new tread!&quot;</span>);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="多继承问题"><a href="#多继承问题" class="headerlink" title="多继承问题"></a>多继承问题</h3><p>Java并不支持多继承，这导致我们新建自定义线程之后无法集成其它类。<code>Runnable</code>接口解决了这个问题。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyThread</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">OtherClass</span> <span class="hljs-title">implements</span> <span class="hljs-title">Runnable</span></span>&#123;<br>	<span class="hljs-meta">@Override</span><br>	<span class="hljs-keyword">public</span> <span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">run</span>(<span class="hljs-params"></span>)</span>&#123;<br>		System.out.println(<span class="hljs-string">&quot;This thread is got by implementing the Runnable interface!&quot;</span>);<br>	&#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> MainClass&#123;<br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-built_in">void</span> <span class="hljs-function"><span class="hljs-title">main</span>(<span class="hljs-params"><span class="hljs-built_in">String</span>[] args</span>)</span>&#123;<br>		Thread myThread = <span class="hljs-keyword">new</span> Thread(<span class="hljs-keyword">new</span> MyThread())<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在此之中，我们向<code>Thread</code>的构造函数中传递了一个继承<code>Runnable</code>接口的类。</p>
+<p>实际上，<code>Thread</code>本身就是基于一个空的<code>Runnable</code>新建的，我们只不过是替换了它而已：</p>
+<h2 id="线程之间的简单交互"><a href="#线程之间的简单交互" class="headerlink" title="线程之间的简单交互"></a>线程之间的简单交互</h2><p>基本的线程间交互可以解释为：</p>
 <blockquote>
-<ul>
-<li>Dense layers: (batch_size, input_size)<br>or (batch_size, optional,…,optional, input_size)</li>
-<li>2D convolutional layers:<br>  if using channels_last: (batch_size, imageside1, imageside2, channels)<br>  if using channels_first: (batch_size, channels, imageside1, imageside2)</li>
-<li>1D convolutions and recurrent layers: (batch_size, sequence_length, features)</li>
-</ul>
+<p>子线程.join(): 主线程阻塞，等待子线程完成<br>线程.sleep(n): 当前线程等待n时间，让出CPU给其它线程，需要抓取中断异常。（当前线程绝对需要等待）<br>线程.yeild(): 当前线程让出CPU，与同优先级的其他线程一起竞争。（当前线程有竞争机会）<br>线程协作：O.wait()和O.notify()通过传递Object实现线程协作，如生产者消费者模式</p>
 </blockquote>
-<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/a/50235563/2097240">Details on how to prepare data for recurrent layers</a></p>
-<p>一般来说就是<code>(batch_size, bulabula)</code></p>
-<h2 id="问题：第一层的Dense-unit-…-和input-shape有啥区别呢？"><a href="#问题：第一层的Dense-unit-…-和input-shape有啥区别呢？" class="headerlink" title="问题：第一层的Dense(unit,…)和input_shape有啥区别呢？"></a>问题：第一层的Dense(unit,…)和input_shape有啥区别呢？</h2><p>这就体现出最初的顾名思义TensorFlow了。</p>
-<p><img src="https://gitee.com/songz7026/image-pool/raw/master/Python/Keras_unit_inputshape.jpg" srcset="/img/loading.gif" alt="本图片非原创，来源于参考链接"></p>
-<p>对于</p>
-<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-function"><span class="hljs-title">Dense</span>(<span class="hljs-params">unit,input_shape,...</span>)</span><br></code></pre></td></tr></table></figure>
-<p><code>unit</code>: 就是该层的单元数，也即该层输出的尺寸。<br><code>input_shape</code>: 其实这个参数和这个层<strong>没什么关系</strong>，它的使命是告诉这个层未来的输入应该是什么样的（这句话像是废话）。下面详细说一说这个<code>input_shape</code>：</p>
-<p>在Keras中，我们定义的都是<code>Layers</code>，也就是各个隐藏层。但是<code>Layers</code>之间的各种复杂关系我们不需要关心，但是在这里我们说一个概念：层之间流动了是<strong>Tensor</strong>，也就是一堆<strong>上一层计算得到</strong>的复杂形状的数据流给<strong>下一层</strong>供接下来计算。</p>
-<p><strong>我们定义的第一个Layers其实并不是输入层(Input Layer), 而是第一个隐藏层(hidden layer 1)。</strong></p>
-<p>因此在此之前的输入层到第一隐藏层的<strong>Tensor</strong>是Keras接触不到的，只能由智慧的你来告诉他，因此才出现了<code>Input</code>层，实际上它是一个<strong>Tensor</strong>。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/44747343/keras-input-explanation-input-shape-units-batch-size-dim-etc">Stack overflow: Keras input explanation: input_shape, units, batch_size, dim, etc</a></p>
 
             </div>
             <hr>
@@ -257,7 +240,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/TensorFlow/">TensorFlow</a>
+                      <a class="hover-with-bg" href="/categories/Java%E9%AB%98%E5%B9%B6%E5%8F%91/">Java高并发</a>
                     
                   </div>
                 
@@ -265,9 +248,11 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Keras/">Keras</a>
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
                     
-                      <a class="hover-with-bg" href="/tags/TensorFlow/">TensorFlow</a>
+                      <a class="hover-with-bg" href="/tags/%E9%AB%98%E5%B9%B6%E5%8F%91/">高并发</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Thread%E5%AF%B9%E8%B1%A1/">Thread对象</a>
                     
                   </div>
                 
@@ -280,18 +265,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/04/22/%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">线程的基本操作</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/01/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%9A%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86/">
-                        <span class="hidden-mobile">数据结构：二叉树的遍历</span>
+                      <a href="/2021/03/05/%E5%8E%98%E6%B8%85Keras%E4%B8%AD%E7%9A%84shape-unit-input-shape-input-dim/">
+                        <span class="hidden-mobile">厘清Keras中的shape,unit,input_shape</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

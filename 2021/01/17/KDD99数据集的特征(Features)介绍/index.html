@@ -174,7 +174,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.4k 字
+      2.5k 字
     </span>
   
 
@@ -184,7 +184,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      32
+      33
        分钟
     </span>
   
@@ -225,6 +225,36 @@
 <li><strong>U2R</strong>：User to Root</li>
 <li><strong>探针攻击</strong>：Probing</li>
 </ul>
+<p>四类攻击在数据集中的详细类型为：</p>
+<table>
+<thead>
+<tr>
+<th>攻击类别</th>
+<th>具体攻击</th>
+<th>测试集中的额外具体攻击</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Dos</td>
+<td>back, neptune, smurf, teardrop, land, pod</td>
+<td>apache2, mailbomb, processtable</td>
+</tr>
+<tr>
+<td>Probe</td>
+<td>satan, portsweep, ipsweep, nmap</td>
+<td>mscan, saint</td>
+</tr>
+<tr>
+<td>R2L</td>
+<td>warezmaster, warezclient, ftpwrite, gusspassword, imap, multihop, phf, spy</td>
+<td>sendmail,named, snmpgetattack, snmpguess, xlock,xsnoop, worm</td>
+</tr>
+<tr>
+<td>U2R</td>
+<td>rootkit, bufferoverflow, loadmodule, perl</td>
+<td>httptunnel, ps, sqlattack,xterm</td>
+</tr>
+</tbody></table>
 <p>KDD99数据集是 <em>DARPA数据集</em> 的 <strong>特征提取(Feature Extract)</strong> 版本（ <em>DARPA</em> 是原始数据集）KDD99对每个连接提取了 <strong>41</strong> 个特征，使用<strong>Bro-IDS</strong>工具对数据贴标签。</p>
 <p>其41个特征可以按以下方式分类：</p>
 <ul>
