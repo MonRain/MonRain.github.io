@@ -1,0 +1,575 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="MonRain">
+  <meta name="keywords" content="">
+  <title>数据库中索引的分类 - 寒山雨</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"monrain.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"8379290ea25ba5bb7ce74136a14368c2","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"cfMGSskrslq5bGWt4S9w22gj-gzGzoHsz","app_key":"2vLAJpthzuCQMsvLO92iQUr1","server_url":"https://cfmgsskr.lc-cn-n1-shared.com"}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>寒山雨</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="数据库中索引的分类">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-06-17 17:53" pubdate>
+        2021年6月17日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      14
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">数据库中索引的分类</h1>
+            
+            <div class="markdown-body">
+              <h1 id="数据库中索引的分类"><a href="#数据库中索引的分类" class="headerlink" title="数据库中索引的分类"></a>数据库中索引的分类</h1><p><em>本文中可能存在汉译与现行流行词语不相符，均已注明英文原词。</em></p>
+<p>名词解释：</p>
+<p>index：索引，有时候特指一条特定的索引。</p>
+<p>index entry/index record：索引项/索引记录，索引中一条特定的索引单元。</p>
+<p>search key：搜索码，指在数据库的表中，用来建立索引的列。</p>
+<p>record：数据库表中的一条（一行）数据。</p>
+<h2 id="索引简介"><a href="#索引简介" class="headerlink" title="索引简介"></a>索引简介</h2><p>索引是为了优化大规模数据库的查找而在数据库内部维护的一种<strong>数据结构</strong>。</p>
+<p>索引的最小单元是index entry，包含若干search key和具有该search key的数据地址（物理区块+偏移量）。</p>
+<p>可以分为顺序索引和<del>散列索引</del>。</p>
+<p>顺序索引又可以分为稠密索引、稀疏索引；聚簇索引、非聚簇索引。</p>
+<p><del>散列索引。</del></p>
+<p><del>此外还有诸如唯一索引（未完成）等名词</del></p>
+<h2 id="稠密索引-dense-index-与稀疏索引-sparse-index"><a href="#稠密索引-dense-index-与稀疏索引-sparse-index" class="headerlink" title="稠密索引(dense index)与稀疏索引(sparse index)"></a>稠密索引(dense index)与稀疏索引(sparse index)</h2><p>稠密索引：</p>
+<ul>
+<li>从index角度看，dense index 的所有指针覆盖了所有数据。</li>
+<li>从record角度看，任意一条record都有一个索引项。</li>
+</ul>
+<p>稀疏索引</p>
+<ul>
+<li>从index角度看，sparse index 的所有指针不能覆盖所有数据。即不能通过一个sparse index找到表中所有数据。</li>
+<li>从record角度看，存在record无法对应到sparse index中的任一index entry。</li>
+</ul>
+<p><img src="https://gitee.com/songz7026/image-pool/raw/master/sql/clustering_index.png" srcset="/img/loading.gif" alt="image-20210617202352483" style="zoom:33%;"/>稠密索引</p>
+<p><img src="https://gitee.com/songz7026/image-pool/raw/master/sql/sparse_index.png" srcset="/img/loading.gif" alt="image-20210617202423345" style="zoom: 50%;" />稀疏索引</p>
+<p>图源[2]。</p>
+<h2 id="聚簇索引-clustering-index-与非聚簇索引-nonclustering-index"><a href="#聚簇索引-clustering-index-与非聚簇索引-nonclustering-index" class="headerlink" title="聚簇索引(clustering index)与非聚簇索引(nonclustering index)"></a>聚簇索引(clustering index)与非聚簇索引(nonclustering index)</h2><h3 id="聚簇索引（主索引）"><a href="#聚簇索引（主索引）" class="headerlink" title="聚簇索引（主索引）"></a>聚簇索引（主索引）</h3><p>clustering index, 有时也作clustered index。也有人翻译成：聚集索引、聚合索引等，其实都是一样的。</p>
+<p>[2]中对聚簇索引的定义是：</p>
+<blockquote>
+<p>*a clustering index is an index whose search key also defines the sequential order of the file. *</p>
+</blockquote>
+<p>这句定义非常简单，聚簇索引的实质就是<strong>索引本身index entry的和表中具有相应search key的record的顺序一致</strong>。</p>
+<p><img src="https://gitee.com/songz7026/image-pool/raw/master/sql/clustering_index.png" srcset="/img/loading.gif" alt="image-20210617202352483" style="zoom:33%;"/>聚簇索引</p>
+<p>对于可能存在的多个具有相同search key的record，index entry只需要保存第一个出现的该search key值的位置，由于顺序排列，其余相同具有该search key值的record都紧随其后地排列在第一条之后。</p>
+<p>注意到书中紧随定义之后的一段话。</p>
+<blockquote>
+<p><em>Clustering indices are also called primary indices; The term primary index ay appear to denote an index on a primary key but such indices can in fact be built on any search key .the search key of a clustering index is often the primary key, although that is not necessary so.</em> </p>
+</blockquote>
+<p>这里要注意辨别聚簇索引的另一个别名（主索引）与主键的关系：<u>习惯上主键上建立主索引，但这不是必须的</u>。</p>
+<p><em>到这里看过其它介绍的读者可能会产生疑惑，因为很多网上资料写聚簇索引都是用层次结构（类似树）来表示的。</em></p>
+<p><em>本质上，聚簇索引的定义就是index entry和具有相应search key的record的顺序一致，很简洁。至于为什么网上那么多资料都解释得如此复杂，就要提到一个概念——多级索引（Mutilevel indeices）</em></p>
+<h4 id="多级索引"><a href="#多级索引" class="headerlink" title="多级索引"></a>多级索引</h4><p>如[聚簇索引]图中所示，索引中index entry的数目几乎和表中数据条数属于同量级（几乎相等），对于大规模数据库，索引的体量可能会很大，因此在查询中很难全部读取到主存中，难免出现频繁IO操作（关于主存和磁盘IO的读取速度对性能的讨论可以参考[1]）。</p>
+<p>即使主存空闲容量&gt;index大小，当index体量足够大时，计算机主存本身也需要为其它工作服务，不能大部分都被数据库查询啃食。</p>
+<p>因此，需要对[聚簇索引]图中<strong>笨重的类线性表</strong>index结构做出调整（对数据结构进行优化），因此就出现了[多级索引]图这样的结构，这个就更像网上大多数人传递的“聚簇索引”版本了。</p>
+<p><img src="https://gitee.com/songz7026/image-pool/raw/master/sql/mutilevel_index.png" srcset="/img/loading.gif" alt="image-20210617205518965" style="zoom:50%;" />多级索引</p>
+<p>多级索引的具体实现取决于不同的引擎。MyISAM和InnoDB使用B+树来实现，详见[2]。</p>
+<h3 id="非聚簇索引（辅助索引）"><a href="#非聚簇索引（辅助索引）" class="headerlink" title="非聚簇索引（辅助索引）"></a>非聚簇索引（辅助索引）</h3><p>nonclustering index, 也称secondary index（辅助索引）。其它译法类似聚簇索引，也有非聚集索引、非聚合索引等。</p>
+<p><img src="https://gitee.com/songz7026/image-pool/raw/master/sql/nonclustering_index.png" srcset="/img/loading.gif" alt="image-20210617203926465" style="zoom:50%;" />非聚簇索引的一种变体</p>
+<p>同样参考[2]中的定义：</p>
+<blockquote>
+<p><em>Indices whose search key specifies an order different from the sequential order of the file are called nonclustering indices, or secondary indices.</em></p>
+</blockquote>
+<p>非聚簇索引就是index entry和数据库中具有相应search key的record的排列顺序不同。</p>
+<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><ul>
+<li>非聚簇索引必须是dense index。（由于index entry与record顺序不同，sparse index很难保证能够找到表中的全部记录）</li>
+<li>非聚簇索引的dense index的每一个index entry必须保存search key对应所有record的list（由于顺序不同，无法采取只保存第一个然后往后继续读取的方式）</li>
+</ul>
+<h2 id="常见面试问题"><a href="#常见面试问题" class="headerlink" title="常见面试问题"></a>常见面试问题</h2><p>聚簇索引和非聚簇索引的区别</p>
+<p>为什么使用B+树而不是红黑树、查找树？</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>[1]. <a target="_blank" rel="noopener" href="https://blog.codinglabs.org/articles/theory-of-mysql-index.html">MySQL索引背后的数据结构及算法原理</a></p>
+<p>[2]. <a target="_blank" rel="noopener" href="https://www.db-book.com/">Database System Concepts(6th Edition)</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%B4%A2%E5%BC%95/">索引</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/">聚簇索引</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/06/02/Java%E5%85%AB%E8%82%A1%E6%96%87/">
+                        <span class="hidden-mobile">Java八股文</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "cfMGSskrslq5bGWt4S9w22gj-gzGzoHsz",
+          app_key: "2vLAJpthzuCQMsvLO92iQUr1",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?8379290ea25ba5bb7ce74136a14368c2";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
