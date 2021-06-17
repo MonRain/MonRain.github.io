@@ -79,4 +79,122 @@ else:
 
 使用方法在`PySAD`的[Example](https://pysad.readthedocs.io/en/latest/examples.html#example-full-usage)中有体现。
 
-![项目仓库中的示例](https://raw.githubusercontent.com/tqdm/img/master/tqdm.gif)
+![项目仓库中的示例](https://gitee.com/songz7026/image-pool/raw/master/Python/tqdm%E6%BC%94%E7%A4%BA.gif)
+
+# Python删除变量
+
+在Python中删除指定变量以节省空间，使用`del var`命令
+
+```Python
+>>> a=1
+>>> a
+1
+>>> del a
+>>> a
+Traceback (most recent call last):
+  File "<input>", line 1, in <module>
+NameError: name 'a' is not defined
+
+```
+
+# 关于Python中Iterator重置问题
+
+Iterator是Python中常见的类型，不特指具体类型。
+
+一般此类只提供__next__()方法获得迭代器中下一个元素。如：
+
+```Python
+>>> a=np.random.random((3,4))
+>>> b=iter(a)    
+>>> a
+array([[0.73612967, 0.01244284, 0.21440946, 0.29223116],
+       [0.39542505, 0.14566755, 0.21281517, 0.04957406],
+       [0.90193673, 0.1955091 , 0.64111833, 0.78027169]])
+>>> b.__next__()
+array([0.73612967, 0.01244284, 0.21440946, 0.29223116])
+>>> b.__next__()
+array([0.39542505, 0.14566755, 0.21281517, 0.04957406])
+>>> b.__iter__()
+<iterator object at 0x000001BFA787FF08>
+```
+
+**问题**：有的时候需要**重新进行迭代**，即对迭代器的指针重置到初始位置。
+
+但是迭代器一般只有`iter()`和`next()`方法，没有重置的方法，非常的令人头疼。
+
+经过调查，有关于**tee**的方法，但是存在质疑，因为它主要不是干这个的。所以目前笔者能够想到的方法是：**重新定义一个新的迭代器**。
+
+```Python
+>>> a=np.random.random((3,4))
+>>> b=iter(a)    
+>>> a
+array([[0.73612967, 0.01244284, 0.21440946, 0.29223116],
+       [0.39542505, 0.14566755, 0.21281517, 0.04957406],
+       [0.90193673, 0.1955091 , 0.64111833, 0.78027169]])
+>>> b.__next__()
+array([0.73612967, 0.01244284, 0.21440946, 0.29223116])
+>>> b.__next__()
+array([0.39542505, 0.14566755, 0.21281517, 0.04957406])
+>>> b.__iter__()
+<iterator object at 0x000001BFA787FF08>
+>>> b.__next__()
+array([0.90193673, 0.1955091 , 0.64111833, 0.78027169])
+>>> b.__next__()
+Traceback (most recent call last):
+  File "<input>", line 1, in <module>
+StopIteration
+>>> c=iter(a)
+>>> c.__next__()
+array([0.73612967, 0.01244284, 0.21440946, 0.29223116])
+>>> c.__next__()
+array([0.39542505, 0.14566755, 0.21281517, 0.04957406])
+>>> c.__next__()
+array([0.90193673, 0.1955091 , 0.64111833, 0.78027169])
+>>> c.__next__()
+Traceback (most recent call last):
+  File "<input>", line 1, in <module>
+StopIteration
+```
+
+新的小tip：可以删除原来的迭代器，重新定义重名变量，节省空间。
+
+```Python
+>>> del b
+>>> b.__next__()
+Traceback (most recent call last):
+  File "<input>", line 1, in <module>
+NameError: name 'b' is not defined
+>>> b=iter(a)
+>>> b.__next__()
+array([0.73612967, 0.01244284, 0.21440946, 0.29223116])
+```
+
+# 使用pandas查找数组中元素出现的次数
+
+
+```Python
+>>> import pandas as pd
+>>> a=np.random.random((3,4))
+>>> a=[1,2,2,3,4,4]
+>>> pd.value_counts(a)
+# 元素 出现次数 
+2    2
+4    2
+1    1
+3    1
+dtype: int64
+>>> np.array(pd.value_counts(a))
+array([2, 2, 1, 1], dtype=int64)
+```
+
+# List的中是否包含某元素
+
+```Python
+>>> a=[1,2,2,3,4,4]
+>>> a.__contains__(2)
+True
+>>> a.__contains__(6)
+False
+
+```
+

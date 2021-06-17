@@ -22,6 +22,15 @@ KDD99包含了置入攻击的军事网络环境中的记录。攻击可以分类
 + **U2R**：User to Root
 + **探针攻击**：Probing
 
+四类攻击在数据集中的详细类型为：
+
+|攻击类别|具体攻击|测试集中的额外具体攻击|
+|--|--|--|
+|Dos|back, neptune, smurf, teardrop, land, pod|apache2, mailbomb, processtable|
+|Probe|satan, portsweep, ipsweep, nmap|mscan, saint|
+|R2L|warezmaster, warezclient, ftpwrite, gusspassword, imap, multihop, phf, spy|sendmail,named, snmpgetattack, snmpguess, xlock,xsnoop, worm|
+|U2R|rootkit, bufferoverflow, loadmodule, perl|httptunnel, ps, sqlattack,xterm|
+
 KDD99数据集是 *DARPA数据集* 的 **特征提取(Feature Extract)** 版本（ *DARPA* 是原始数据集）KDD99对每个连接提取了 **41** 个特征，使用**Bro-IDS**工具对数据贴标签。
 
 其41个特征可以按以下方式分类：
